@@ -1,0 +1,373 @@
+{
+  "pagelen": 10,
+  "values": [
+    {
+      "update": {
+        "description": "This is the corresponding PR to #2616",
+        "title": "Some PR title",
+        "destination": {
+          "commit": {
+            "hash": "03c1c21fd3e8",
+            "type": "commit",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/commit/03c1c21fd3e8"
+              },
+              "html": {
+                "href": "https://bitbucket.org/repoowner1/repo1/commits/03c1c21fd3e8"
+              }
+            }
+          },
+          "repository": {
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1"
+              },
+              "html": {
+                "href": "https://bitbucket.org/repoowner1/repo1"
+              },
+              "avatar": {
+                "href": "https://imgsrc.example"
+              }
+            },
+            "type": "repository",
+            "name": "repo1",
+            "full_name": "repoowner1/repo1",
+            "uuid": "{fe200f46-6de8-41ce-9e54-1826c5610083}"
+          },
+          "branch": {
+            "name": "master"
+          }
+        },
+        "reason": "Some PR decline reason",
+        "source": {
+          "commit": {
+            "hash": "c367ded2882b",
+            "type": "commit",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/author1/repo1/commit/c367ded2882b"
+              },
+              "html": {
+                "href": "https://bitbucket.org/author1/repo1/commits/c367ded2882b"
+              }
+            }
+          },
+          "repository": {
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/author1/repo1"
+              },
+              "html": {
+                "href": "https://bitbucket.org/author1/repo1"
+              },
+              "avatar": {
+                "href": "https://imgsrc.example"
+              }
+            },
+            "type": "repository",
+            "name": "repo1",
+            "full_name": "author1/repo1",
+            "uuid": "{04383eee-2971-4e1a-bfa7-23828f502d28}"
+          },
+          "branch": {
+            "name": "cef_2616"
+          }
+        },
+        "state": "DECLINED",
+        "author": {
+          "username": "author1",
+          "display_name": "Author 1",
+          "uuid": "{58dbd2a5-66ef-4367-b5ea-f2301e374449}",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/users/%7B58dbd2a5-66ef-4367-b5ea-f2301e374449%7D"
+            },
+            "html": {
+              "href": "https://bitbucket.org/%7B58dbd2a5-66ef-4367-b5ea-f2301e374449%7D/"
+            },
+            "avatar": {
+              "href": "https://imgsrc.example"
+            }
+          },
+          "nickname": "Author 1",
+          "type": "user",
+          "account_id": "637029:cdf29ef8-cd86-48a3-997e-f55afebd70eb"
+        },
+        "date": "2019-05-08T18:15:59.514007+00:00"
+      },
+      "pull_request": {
+        "type": "pullrequest",
+        "id": 2,
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2"
+          },
+          "html": {
+            "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/2"
+          }
+        },
+        "title": "Some PR title"
+      }
+    },
+    {
+      "approval": {
+        "date": "2019-05-15T09:25:58.674877+00:00",
+        "pullrequest": {
+          "type": "pullrequest",
+          "id": 2,
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/2"
+            }
+          },
+          "title": "Some PR title"
+        },
+        "user": {
+          "username": "repoowner1",
+          "display_name": "Repo Owner 1",
+          "uuid": "{dc0d7577-9404-482a-85af-9a8a379ab471}",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/users/%7Bdc0d7577-9404-482a-85af-9a8a379ab471%7D"
+            },
+            "html": {
+              "href": "https://bitbucket.org/%7Bdc0d7577-9404-482a-85af-9a8a379ab471%7D/"
+            },
+            "avatar": {
+              "href": "https://imgsrc.example"
+            }
+          },
+          "nickname": "repoowner1",
+          "type": "user",
+          "account_id": "557057:44a78471-963c-4b63-8a5f-994c2d75613d"
+        }
+      },
+      "pull_request": {
+        "type": "pullrequest",
+        "id": 2,
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2"
+          },
+          "html": {
+            "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/2"
+          }
+        },
+        "title": "Some PR title"
+      }
+    },
+    {
+      "comment": {
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2/comments/101358731"
+          },
+          "html": {
+            "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/2/_/diff#comment-101358731"
+          }
+        },
+        "deleted": false,
+        "pullrequest": {
+          "type": "pullrequest",
+          "id": 2,
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/2"
+            }
+          },
+          "title": "Some PR title"
+        },
+        "content": {
+          "raw": "Sample comment",
+          "markup": "markdown",
+          "html": "<p>Sample comment</p>",
+          "type": "rendered"
+        },
+        "created_on": "2019-05-08T18:15:54.204435+00:00",
+        "user": null,
+        "updated_on": "2019-05-08T18:15:54.213904+00:00",
+        "type": "pullrequest_comment",
+        "id": 101358731
+      },
+      "pull_request": {
+        "type": "pullrequest",
+        "id": 2,
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2"
+          },
+          "html": {
+            "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/2"
+          }
+        },
+        "title": "Some PR title"
+      }
+    },
+    {
+      "comment": {
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2/comments/94963965"
+          },
+          "html": {
+            "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/2/_/diff#comment-94963965"
+          }
+        },
+        "parent": {
+          "id": 94891166,
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2/comments/94891166"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/2/_/diff#comment-94891166"
+            }
+          }
+        },
+        "deleted": true,
+        "pullrequest": {
+          "type": "pullrequest",
+          "id": 2,
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/2"
+            }
+          },
+          "title": "Some PR title"
+        },
+        "content": {
+          "raw": "Deleted comment",
+          "markup": "markdown",
+          "html": "<p>Deleted comment.</p>",
+          "type": "rendered"
+        },
+        "created_on": "2019-03-14T07:47:30.666498+00:00",
+        "user": {
+          "username": "author1",
+          "display_name": "Author 1",
+          "uuid": "{58dbd2a5-66ef-4367-b5ea-f2301e374449}",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/users/%7B58dbd2a5-66ef-4367-b5ea-f2301e374449%7D"
+            },
+            "html": {
+              "href": "https://bitbucket.org/%7B58dbd2a5-66ef-4367-b5ea-f2301e374449%7D/"
+            },
+            "avatar": {
+              "href": "https://imgsrc.example"
+            }
+          },
+          "nickname": "Author 1",
+          "type": "user",
+          "account_id": "637029:cdf29ef8-cd86-48a3-997e-f55afebd70eb"
+        },
+        "updated_on": "2019-03-14T07:47:30.726379+00:00",
+        "type": "pullrequest_comment",
+        "id": 94963965
+      },
+      "pull_request": {
+        "type": "pullrequest",
+        "id": 2,
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2"
+          },
+          "html": {
+            "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/2"
+          }
+        },
+        "title": "Some PR title"
+      }
+    },
+    {
+      "comment": {
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2/comments/94891166"
+          },
+          "html": {
+            "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/2/_/diff#comment-94891166"
+          }
+        },
+        "parent": {
+          "id": 94392100,
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2/comments/94392100"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/2/_/diff#comment-94392100"
+            }
+          }
+        },
+        "deleted": false,
+        "pullrequest": {
+          "type": "pullrequest",
+          "id": 2,
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/2"
+            }
+          },
+          "title": "Some PR title"
+        },
+        "content": {
+          "raw": "Comment with parent, different author",
+          "markup": "markdown",
+          "html": "<p>Comment with parent, different author</p>",
+          "type": "rendered"
+        },
+        "created_on": "2019-03-13T16:45:48.364789+00:00",
+        "user": {
+          "username": "author2",
+          "display_name": "Author 2",
+          "uuid": "{25a9e1a0-65d4-497a-a9cd-968822cb427e}",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/users/%7B25a9e1a0-65d4-497a-a9cd-968822cb427e%7D"
+            },
+            "html": {
+              "href": "https://bitbucket.org/%7B25a9e1a0-65d4-497a-a9cd-968822cb427e%7D/"
+            },
+            "avatar": {
+              "href": "https://imgsrc.example"
+            }
+          },
+          "nickname": "Author 2",
+          "type": "user",
+          "account_id": "637029:f1dcf0dd-43b2-46ff-be64-f51ef8a46db9"
+        },
+        "updated_on": "2019-03-13T16:47:58.704514+00:00",
+        "type": "pullrequest_comment",
+        "id": 94891166
+      },
+      "pull_request": {
+        "type": "pullrequest",
+        "id": 2,
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2"
+          },
+          "html": {
+            "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/2"
+          }
+        },
+        "title": "Some PR title"
+      }
+    }
+  ],
+  "next": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2/activity?ctx=b8f6tM"
+}

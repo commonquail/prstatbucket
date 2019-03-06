@@ -1,0 +1,43 @@
+REVOKE ALL ON DATABASE prstatbucket FROM public;
+REVOKE ALL ON SCHEMA public FROM public;
+REVOKE ALL ON ALL TABLES IN SCHEMA public FROM public;
+
+
+CREATE ROLE migrations;
+GRANT CONNECT ON DATABASE prstatbucket TO migrations;
+GRANT ALL ON ALL TABLES IN SCHEMA public TO migrations;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO migrations;
+GRANT ALL ON SCHEMA public TO migrations;
+
+
+CREATE ROLE app;
+GRANT CONNECT ON DATABASE prstatbucket TO app;
+GRANT USAGE ON SCHEMA public TO app;
+GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO app;
+GRANT USAGE ON ALL TABLES IN SCHEMA public TO app;
+GRANT TEMP ON DATABASE prstatbucket TO app;
+
+
+ALTER DEFAULT PRIVILEGES
+  FOR ROLE migrations
+  IN SCHEMA public
+  GRANT ALL PRIVILEGES ON TABLES TO migrations;
+
+ALTER DEFAULT PRIVILEGES
+  FOR ROLE migrations
+  IN SCHEMA public
+  GRANT INSERT, SELECT, UPDATE, DELETE ON TABLES TO app;
+
+ALTER DEFAULT PRIVILEGES
+  FOR ROLE migrations
+  IN SCHEMA public
+  GRANT USAGE ON SEQUENCES TO app;
+
+
+CREATE ROLE flyway PASSWORD 'flyway' LOGIN;
+GRANT migrations TO flyway;
+ALTER ROLE flyway SET ROLE 'migrations';
+
+
+CREATE ROLE prstatbucket PASSWORD 'prstatbucket' LOGIN;
+GRANT app TO prstatbucket;

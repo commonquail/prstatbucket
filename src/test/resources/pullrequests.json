@@ -1,0 +1,474 @@
+{
+  "pagelen": 10,
+  "values": [
+    {
+      "description": "README.md created online with Bitbucket",
+      "links": {
+        "decline": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/3/decline"
+        },
+        "commits": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/3/commits"
+        },
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/3"
+        },
+        "comments": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/3/comments"
+        },
+        "merge": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/3/merge"
+        },
+        "html": {
+          "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/3"
+        },
+        "activity": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/3/activity"
+        },
+        "diff": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/3/diff"
+        },
+        "approve": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/3/approve"
+        },
+        "statuses": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/3/statuses"
+        }
+      },
+      "title": "Some merged PR",
+      "close_source_branch": true,
+      "type": "pullrequest",
+      "id": 3,
+      "destination": {
+        "commit": {
+          "hash": "f3da09ef5e3a",
+          "type": "commit",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/commit/f3da09ef5e3a"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1/commits/f3da09ef5e3a"
+            }
+          }
+        },
+        "repository": {
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1"
+            },
+            "avatar": {
+              "href": "https://imgsrc.example"
+            }
+          },
+          "type": "repository",
+          "name": "Repo 1",
+          "full_name": "repoowner1/repo1",
+          "uuid": "{06a9e4a8-4576-49c4-b8f0-95bbc7717b87}"
+        },
+        "branch": {
+          "name": "master"
+        }
+      },
+      "created_on": "2019-05-15T08:35:07.724888+00:00",
+      "summary": {
+        "raw": "README.md created online with Bitbucket",
+        "markup": "markdown",
+        "html": "<p>README.md created online with Bitbucket</p>",
+        "type": "rendered"
+      },
+      "source": {
+        "commit": {
+          "hash": "3032fdc0941c",
+          "type": "commit",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/commit/3032fdc0941c"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1/commits/3032fdc0941c"
+            }
+          }
+        },
+        "repository": {
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1"
+            },
+            "avatar": {
+              "href": "https://imgsrc.example"
+            }
+          },
+          "type": "repository",
+          "name": "Repo 1",
+          "full_name": "repoowner1/repo1",
+          "uuid": "{06a9e4a8-4576-49c4-b8f0-95bbc7717b87}"
+        },
+        "branch": {
+          "name": "repoowner1/readmemd-created-online-with-bitbucket-1557909287107"
+        }
+      },
+      "comment_count": 1,
+      "state": "MERGED",
+      "task_count": 0,
+      "reason": "",
+      "updated_on": "2019-05-15T09:25:58.679927+00:00",
+      "author": {
+        "username": "repoowner1",
+        "display_name": "Repo Owner 1",
+        "uuid": "{b1ec23cd-9465-4ed3-afc2-a4cc612757b4}",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/users/%7Bb1ec23cd-9465-4ed3-afc2-a4cc612757b4%7D"
+          },
+          "html": {
+            "href": "https://bitbucket.org/%7Bb1ec23cd-9465-4ed3-afc2-a4cc612757b4%7D/"
+          },
+          "avatar": {
+            "href": "https://imgsrc.example"
+          }
+        },
+        "nickname": "Repo Owner 1",
+        "type": "user",
+        "account_id": "557058:c0022c5d-395d-4d95-8c82-304281524c4a"
+      },
+      "merge_commit": {
+        "hash": "ca9d6e9b6486",
+        "type": "commit",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/commit/ca9d6e9b6486"
+          },
+          "html": {
+            "href": "https://bitbucket.org/repoowner1/repo1/commits/ca9d6e9b6486"
+          }
+        }
+      },
+      "closed_by": {
+        "username": "repoowner1",
+        "display_name": "Repo Owner 1",
+        "uuid": "{b1ec23cd-9465-4ed3-afc2-a4cc612757b4}",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/users/%7Bb1ec23cd-9465-4ed3-afc2-a4cc612757b4%7D"
+          },
+          "html": {
+            "href": "https://bitbucket.org/%7Bb1ec23cd-9465-4ed3-afc2-a4cc612757b4%7D/"
+          },
+          "avatar": {
+            "href": "https://imgsrc.example"
+          }
+        },
+        "nickname": "Repo Owner 1",
+        "type": "user",
+        "account_id": "557058:c0022c5d-395d-4d95-8c82-304281524c4a"
+      }
+    },
+    {
+      "description": "",
+      "links": {
+        "decline": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2/decline"
+        },
+        "commits": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2/commits"
+        },
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2"
+        },
+        "comments": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2/comments"
+        },
+        "merge": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2/merge"
+        },
+        "html": {
+          "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/2"
+        },
+        "activity": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2/activity"
+        },
+        "diff": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2/diff"
+        },
+        "approve": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2/approve"
+        },
+        "statuses": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2/statuses"
+        }
+      },
+      "title": "Some open PR",
+      "close_source_branch": true,
+      "type": "pullrequest",
+      "id": 2,
+      "destination": {
+        "commit": {
+          "hash": "ca9d6e9b6486",
+          "type": "commit",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/commit/ca9d6e9b6486"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1/commits/ca9d6e9b6486"
+            }
+          }
+        },
+        "repository": {
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1"
+            },
+            "avatar": {
+              "href": "https://imgsrc.example"
+            }
+          },
+          "type": "repository",
+          "name": "Repo 1",
+          "full_name": "repoowner1/repo1",
+          "uuid": "{06a9e4a8-4576-49c4-b8f0-95bbc7717b87}"
+        },
+        "branch": {
+          "name": "master"
+        }
+      },
+      "created_on": "2019-03-06T19:20:32.157622+00:00",
+      "summary": {
+        "raw": "",
+        "markup": "markdown",
+        "html": "",
+        "type": "rendered"
+      },
+      "source": {
+        "commit": {
+          "hash": "db2ff55384ae",
+          "type": "commit",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/commit/db2ff55384ae"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1/commits/db2ff55384ae"
+            }
+          }
+        },
+        "repository": {
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1"
+            },
+            "avatar": {
+              "href": "https://imgsrc.example"
+            }
+          },
+          "type": "repository",
+          "name": "Repo 1",
+          "full_name": "repoowner1/repo1",
+          "uuid": "{06a9e4a8-4576-49c4-b8f0-95bbc7717b87}"
+        },
+        "branch": {
+          "name": "open"
+        }
+      },
+      "comment_count": 1,
+      "state": "OPEN",
+      "task_count": 2,
+      "reason": "",
+      "updated_on": "2019-05-15T08:37:44.374868+00:00",
+      "author": {
+        "username": "repoowner1",
+        "display_name": "Repo Owner 1",
+        "uuid": "{b1ec23cd-9465-4ed3-afc2-a4cc612757b4}",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/users/%7Bb1ec23cd-9465-4ed3-afc2-a4cc612757b4%7D"
+          },
+          "html": {
+            "href": "https://bitbucket.org/%7Bb1ec23cd-9465-4ed3-afc2-a4cc612757b4%7D/"
+          },
+          "avatar": {
+            "href": "https://imgsrc.example"
+          }
+        },
+        "nickname": "Repo Owner 1",
+        "type": "user",
+        "account_id": "557058:c0022c5d-395d-4d95-8c82-304281524c4a"
+      },
+      "merge_commit": null,
+      "closed_by": null
+    },
+    {
+      "description": "",
+      "links": {
+        "decline": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/1/decline"
+        },
+        "commits": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/1/commits"
+        },
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/1"
+        },
+        "comments": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/1/comments"
+        },
+        "merge": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/1/merge"
+        },
+        "html": {
+          "href": "https://bitbucket.org/repoowner1/repo1/pull-requests/1"
+        },
+        "activity": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/1/activity"
+        },
+        "diff": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/1/diff"
+        },
+        "approve": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/1/approve"
+        },
+        "statuses": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/1/statuses"
+        }
+      },
+      "title": "Some declined PR",
+      "close_source_branch": false,
+      "type": "pullrequest",
+      "id": 1,
+      "destination": {
+        "commit": {
+          "hash": "f3da09ef5e3a",
+          "type": "commit",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/commit/f3da09ef5e3a"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1/commits/f3da09ef5e3a"
+            }
+          }
+        },
+        "repository": {
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1"
+            },
+            "avatar": {
+              "href": "https://imgsrc.example"
+            }
+          },
+          "type": "repository",
+          "name": "Repo 1",
+          "full_name": "repoowner1/repo1",
+          "uuid": "{06a9e4a8-4576-49c4-b8f0-95bbc7717b87}"
+        },
+        "branch": {
+          "name": "master"
+        }
+      },
+      "created_on": "2019-03-06T19:19:02.576925+00:00",
+      "summary": {
+        "raw": "",
+        "markup": "markdown",
+        "html": "",
+        "type": "rendered"
+      },
+      "source": {
+        "commit": {
+          "hash": "c1ce257da382",
+          "type": "commit",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/commit/c1ce257da382"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1/commits/c1ce257da382"
+            }
+          }
+        },
+        "repository": {
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo1"
+            },
+            "avatar": {
+              "href": "https://imgsrc.example"
+            }
+          },
+          "type": "repository",
+          "name": "Repo 1",
+          "full_name": "repoowner1/repo1",
+          "uuid": "{06a9e4a8-4576-49c4-b8f0-95bbc7717b87}"
+        },
+        "branch": {
+          "name": "decline"
+        }
+      },
+      "comment_count": 0,
+      "state": "DECLINED",
+      "task_count": 0,
+      "reason": "Demonstrating declines",
+      "updated_on": "2019-03-06T19:19:32.353766+00:00",
+      "author": {
+        "username": "repoowner1",
+        "display_name": "Repo Owner 1",
+        "uuid": "{b1ec23cd-9465-4ed3-afc2-a4cc612757b4}",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/users/%7Bb1ec23cd-9465-4ed3-afc2-a4cc612757b4%7D"
+          },
+          "html": {
+            "href": "https://bitbucket.org/%7Bb1ec23cd-9465-4ed3-afc2-a4cc612757b4%7D/"
+          },
+          "avatar": {
+            "href": "https://imgsrc.example"
+          }
+        },
+        "nickname": "Repo Owner 1",
+        "type": "user",
+        "account_id": "557058:c0022c5d-395d-4d95-8c82-304281524c4a"
+      },
+      "merge_commit": null,
+      "closed_by": {
+        "username": "repoowner1",
+        "display_name": "Repo Owner 1",
+        "uuid": "{b1ec23cd-9465-4ed3-afc2-a4cc612757b4}",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/users/%7Bb1ec23cd-9465-4ed3-afc2-a4cc612757b4%7D"
+          },
+          "html": {
+            "href": "https://bitbucket.org/%7Bb1ec23cd-9465-4ed3-afc2-a4cc612757b4%7D/"
+          },
+          "avatar": {
+            "href": "https://imgsrc.example"
+          }
+        },
+        "nickname": "Repo Owner 1",
+        "type": "user",
+        "account_id": "557058:c0022c5d-395d-4d95-8c82-304281524c4a"
+      }
+    }
+  ],
+  "page": 1,
+  "size": 3
+}
