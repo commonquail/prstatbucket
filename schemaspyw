@@ -1,0 +1,47 @@
+#!/bin/bash
+
+set -o errexit
+
+schemaspy_version="6.0.0"
+
+ensure_jarfile()
+{
+    local jarfile="schemaspy-${schemaspy_version}.jar"
+    [[ -f $jarfile ]] ||
+        wget "https://github.com/schemaspy/schemaspy/releases/download/v${schemaspy_version}/$jarfile"
+
+    printf '%s' "$jarfile"
+}
+
+ensure_driver_path()
+{
+    local driver_version="42.2.5"
+    local driver_path="$HOME/.m2/repository/org/postgresql/postgresql/$driver_version/postgresql-${driver_version}.jar"
+    [[ -f $driver_path ]] || driver_path="postgresql-${driver_version}.jar"
+    [[ -f $driver_path ]] ||
+        wget -O "$driver_path" "https://search.maven.org/remotecontent?filepath=org/postgresql/postgresql/$driver_version/$driver_path"
+
+    printf '%s' "$driver_path"
+}
+
+main()
+{
+    [[ ! -f .env ]] || . .env
+
+    local jarfile driver_path
+
+    jarfile="$(ensure_jarfile)"
+    driver_path="$(ensure_driver_path)"
+
+    exec java -jar "$jarfile" \
+        -t pgsql11 \
+        -dp "$driver_path" \
+        -host localhost \
+        -port "${DB_PORT:-5432}" \
+        -db prstatbucket \
+        -u prstatbucket \
+        -p prstatbucket \
+        -o schemaspy
+}
+
+main
