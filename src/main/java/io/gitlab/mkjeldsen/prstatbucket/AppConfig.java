@@ -2,7 +2,10 @@ package io.gitlab.mkjeldsen.prstatbucket;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import io.gitlab.mkjeldsen.prstatbucket.unresolved.UnresolvedReviewDao;
+import io.gitlab.mkjeldsen.prstatbucket.unresolved.UnresolvedReviewService;
 import java.nio.file.Path;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -109,5 +112,10 @@ public class AppConfig {
     @Bean("ingester")
     public Ingester ingester(JsonSupplier jsonSupplier) {
         return new BackgroundIngester(jsonSupplier, jdbi(), executor());
+    }
+
+    @Bean
+    public UnresolvedReviewService unresolvedReviewDao() {
+        return new UnresolvedReviewDao(jdbi(), Clock.systemUTC());
     }
 }
