@@ -8,7 +8,6 @@ import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequest;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequestActivity;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequests;
 import java.io.IOException;
-import java.time.Duration;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.ForkJoinPool;
@@ -131,8 +130,7 @@ public final class BackgroundIngester implements Ingester {
         final var handleTask = new ActivityHandleConsumer(pullRequestActivity);
         final var jdbiTask = new JdbiHandleTask(jdbi, handleTask);
         final var tryTask = new TryTask(3, jdbiTask, executor);
-        final var delayTask = new DelayTask(Duration.ofSeconds(1), tryTask);
-        exec(delayTask);
+        exec(tryTask);
     }
 
     private void exec(Runnable task) {
