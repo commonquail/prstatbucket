@@ -10,8 +10,6 @@ import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequests;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RejectedExecutionException;
 import org.jdbi.v3.core.Jdbi;
@@ -32,15 +30,12 @@ public final class BackgroundIngester implements Ingester {
 
     private final ObjectMapper objectMapper;
 
-    private final ConcurrentHashMap<String, CountDownLatch> latchByUrl;
-
     public BackgroundIngester(
             JsonSupplier jsonSupplier, Jdbi jdbi, ForkJoinPool executor) {
         this.jdbi = jdbi;
         this.executor = executor;
         this.jsonSupplier = jsonSupplier;
         this.objectMapper = objectMapper();
-        this.latchByUrl = new ConcurrentHashMap<>();
     }
 
     static ObjectMapper objectMapper() {
@@ -128,23 +123,14 @@ public final class BackgroundIngester implements Ingester {
         final var handleTask = new PullRequestHandleConsumer(prs);
         final var jdbiTask = new JdbiHandleTask(jdbi, handleTask);
         final var tryTask = new TryTask(3, jdbiTask, executor);
-
-        final var countDownLatch = new CountDownLatch(1);
-        for (PullRequest value : prs.values) {
-            latchByUrl.putIfAbsent(value.links.html.href, countDownLatch);
-        }
-
-        final var blockTask = new BlockTask(tryTask, countDownLatch);
-        exec(blockTask);
+        exec(tryTask);
     }
 
     private void upsert(PullRequestActivity pullRequestActivity) {
         final var handleTask = new ActivityHandleConsumer(pullRequestActivity);
         final var jdbiTask = new JdbiHandleTask(jdbi, handleTask);
         final var tryTask = new TryTask(3, jdbiTask, executor);
-        final var countDownLatch = getCountDownLatch(pullRequestActivity.url);
-        final var awaitTask = new AwaitTask(countDownLatch, tryTask);
-        exec(awaitTask);
+        exec(tryTask);
     }
 
     private void exec(Runnable task) {
@@ -153,9 +139,5 @@ public final class BackgroundIngester implements Ingester {
         } catch (RejectedExecutionException e) {
             LOG.error("Rejected {}", task, e);
         }
-    }
-
-    private CountDownLatch getCountDownLatch(String href) {
-        return latchByUrl.computeIfAbsent(href, ignore -> new CountDownLatch(1));
     }
 }
