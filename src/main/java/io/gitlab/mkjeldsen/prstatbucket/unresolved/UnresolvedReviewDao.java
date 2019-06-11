@@ -10,7 +10,7 @@ import org.jdbi.v3.core.statement.Query;
 public final class UnresolvedReviewDao implements UnresolvedReviewService {
 
     private static final String SQL_OPEN_PRS =
-            "SELECT title, created_ts FROM pull_request WHERE state = 'OPEN' ORDER BY created_ts ASC, title";
+            "SELECT destination, title, created_ts FROM pull_request WHERE state = 'OPEN' ORDER BY created_ts ASC, title";
 
     private final Clock clock;
 

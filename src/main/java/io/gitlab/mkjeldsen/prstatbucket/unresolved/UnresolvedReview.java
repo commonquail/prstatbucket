@@ -5,13 +5,17 @@ import java.util.Objects;
 
 public final class UnresolvedReview implements Comparable<UnresolvedReview> {
 
+    private final String destination;
+
     private final String title;
 
     private final Duration rawAge;
 
     private final String age;
 
-    public UnresolvedReview(String title, Duration rawAge, String age) {
+    public UnresolvedReview(
+            String destination, String title, Duration rawAge, String age) {
+        this.destination = Objects.requireNonNull(destination);
         this.title = Objects.requireNonNull(title);
         this.rawAge = Objects.requireNonNull(rawAge);
         this.age = Objects.requireNonNull(age);
@@ -25,10 +29,17 @@ public final class UnresolvedReview implements Comparable<UnresolvedReview> {
         return age;
     }
 
+    public String getDestination() {
+        return destination;
+    }
+
     @Override
     public String toString() {
         return "UnresolvedReview{"
-                + "title='"
+                + "destination='"
+                + destination
+                + '\''
+                + ", title='"
                 + title
                 + '\''
                 + ", age='"

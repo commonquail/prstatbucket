@@ -32,7 +32,9 @@ final class UnresolvedReviewControllerIntTest {
     @Test
     void serves_html_by_default() throws Exception {
         final var someData =
-                List.of(new UnresolvedReview("foo", Duration.ofHours(2), "2h"));
+                List.of(
+                        new UnresolvedReview(
+                                "foo-dest", "foo", Duration.ofHours(2), "2h"));
 
         Mockito.when(unresolvedReviewService.getOpenPullRequests())
                 .thenReturn(someData);
@@ -55,6 +57,7 @@ final class UnresolvedReviewControllerIntTest {
         final var someData =
                 List.of(
                         new UnresolvedReview(
+                                "bar-dest",
                                 "bar",
                                 Duration.ofDays(1)
                                         .plusHours(3)
@@ -68,7 +71,9 @@ final class UnresolvedReviewControllerIntTest {
         final var requestJson =
                 get("/unresolved").contentType(MediaType.APPLICATION_JSON_UTF8);
         final var matchingJsonBody =
-                content().json("[{\"title\":\"bar\",\"age\":\"1d 3h 12m\"}]");
+                content()
+                        .json(
+                                "[{\"destination\":\"bar-dest\",\"title\":\"bar\",\"age\":\"1d 3h 12m\"}]");
         final var matchingMediaType =
                 content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON);
 

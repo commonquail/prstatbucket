@@ -12,9 +12,10 @@ public final class PullRequestHandleConsumer
     private static final String SQL =
             ""
                     + "INSERT INTO"
-                    + " pull_request (pr_url, title, author, state, created_ts)"
-                    + " VALUES (:pr_url, :title, :author, :state, :created_ts)"
+                    + " pull_request (pr_url, destination, title, author, state, created_ts)"
+                    + " VALUES (:pr_url, :destination, :title, :author, :state, :created_ts)"
                     + " ON CONFLICT (pr_url) DO UPDATE SET"
+                    + " destination = excluded.destination,"
                     + " title = excluded.title";
 
     private final PullRequests pullRequests;
@@ -29,6 +30,7 @@ public final class PullRequestHandleConsumer
 
         for (final var pr : pullRequests.values) {
             batch.bind("pr_url", pr.links.html.href)
+                    .bind("destination", pr.destination.repository.fullName)
                     .bind("title", pr.title)
                     .bind("state", pr.state)
                     .bind("author", hash(pr.author.uuid.toString()))

@@ -19,6 +19,7 @@ public final class UnresolvedReviewRowMapper
     @Override
     public UnresolvedReview map(ResultSet rs, StatementContext ctx)
             throws SQLException {
+        final var destination = rs.getString("destination");
         final var title = rs.getString("title");
 
         // SQL's INTERVAL is cumbersome in integration layers so calculate the
@@ -26,7 +27,7 @@ public final class UnresolvedReviewRowMapper
         final var createdTs = rs.getTimestamp("created_ts").toInstant();
         final var age = Duration.between(createdTs, now);
 
-        return new UnresolvedReview(title, age, prettyAge(age));
+        return new UnresolvedReview(destination, title, age, prettyAge(age));
     }
 
     private static String prettyAge(Duration age) {
