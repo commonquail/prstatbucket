@@ -5,6 +5,8 @@ import java.util.Objects;
 
 public final class UnresolvedReview implements Comparable<UnresolvedReview> {
 
+    private final String url;
+
     private final String destination;
 
     private final String title;
@@ -14,7 +16,12 @@ public final class UnresolvedReview implements Comparable<UnresolvedReview> {
     private final String age;
 
     public UnresolvedReview(
-            String destination, String title, Duration rawAge, String age) {
+            String url,
+            String destination,
+            String title,
+            Duration rawAge,
+            String age) {
+        this.url = url;
         this.destination = Objects.requireNonNull(destination);
         this.title = Objects.requireNonNull(title);
         this.rawAge = Objects.requireNonNull(rawAge);
@@ -33,10 +40,17 @@ public final class UnresolvedReview implements Comparable<UnresolvedReview> {
         return destination;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
     @Override
     public String toString() {
         return "UnresolvedReview{"
-                + "destination='"
+                + "url='"
+                + url
+                + '\''
+                + ", destination='"
                 + destination
                 + '\''
                 + ", title='"

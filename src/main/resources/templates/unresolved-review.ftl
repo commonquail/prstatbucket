@@ -14,7 +14,7 @@
     <#list pullRequests as pr>
     <tr>
         <td>${pr.destination}</td>
-        <td>${pr.title}</td>
+        <td><a href="${pr.url}">${pr.title}</a></td>
         <td>${pr.age}</td>
     </tr>
     </#list>

@@ -36,7 +36,11 @@ final class UnresolvedReviewControllerIntTest {
         final var someData =
                 List.of(
                         new UnresolvedReview(
-                                "foo-dest", "foo", Duration.ofHours(2), "2h"));
+                                "https://pr.example",
+                                "foo-dest",
+                                "foo",
+                                Duration.ofHours(2),
+                                "2h"));
 
         Mockito.when(unresolvedReviewService.getOpenPullRequests())
                 .thenReturn(someData);
@@ -59,6 +63,7 @@ final class UnresolvedReviewControllerIntTest {
         final var someData =
                 List.of(
                         new UnresolvedReview(
+                                "https://pr2.example",
                                 "bar-dest",
                                 "bar",
                                 Duration.ofDays(1)

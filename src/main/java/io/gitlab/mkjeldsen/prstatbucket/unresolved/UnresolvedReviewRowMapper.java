@@ -19,6 +19,7 @@ public final class UnresolvedReviewRowMapper
     @Override
     public UnresolvedReview map(ResultSet rs, StatementContext ctx)
             throws SQLException {
+        final var url = rs.getString("pr_url");
         final var destination = rs.getString("destination");
         final var title = rs.getString("title");
 
@@ -27,7 +28,8 @@ public final class UnresolvedReviewRowMapper
         final var createdTs = rs.getTimestamp("created_ts").toInstant();
         final var age = Duration.between(createdTs, now);
 
-        return new UnresolvedReview(destination, title, age, prettyAge(age));
+        return new UnresolvedReview(
+                url, destination, title, age, prettyAge(age));
     }
 
     private static String prettyAge(Duration age) {
