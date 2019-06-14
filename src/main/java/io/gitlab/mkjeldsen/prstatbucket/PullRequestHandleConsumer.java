@@ -16,6 +16,7 @@ public final class PullRequestHandleConsumer
                     + " VALUES (:pr_url, :destination, :title, :author, :state, :created_ts)"
                     + " ON CONFLICT (pr_url) DO UPDATE SET"
                     + " destination = excluded.destination,"
+                    + " state = excluded.state,"
                     + " title = excluded.title";
 
     private final PullRequests pullRequests;

@@ -84,6 +84,45 @@ final class UnresolvedReviewIntTest {
                         });
     }
 
+    @Test
+    void bug_open_to_closed_pr() {
+
+        // If a PR is ingested while open, then again after closing, its state
+        // must accurately reflect this change.
+        //
+        // Ingest an open PR, then ingest it again with some closed state.
+        // Expect no open PRs.
+
+        final var executor = new ForkJoinPool();
+        final var ingester =
+                new BackgroundIngester(
+                        new TestResourceJsonSupplier(), jdbi, executor);
+
+        ingester.ingest("/bug/open-to-closed/pullrequests-open.json");
+        if (!executor.awaitQuiescence(1, TimeUnit.SECONDS)) {
+            fail("tardy executor");
+        }
+
+        final var someClock = Clock.systemUTC();
+        final var dao = new UnresolvedReviewDao(jdbi, someClock);
+        final var beforeClosed = dao.getOpenPullRequests();
+
+        assertThat(beforeClosed)
+                .hasSize(1)
+                .first()
+                .extracting(UnresolvedReview::getTitle)
+                .describedAs("title")
+                .isEqualTo("Some open, then closed PR");
+
+        ingester.ingest("/bug/open-to-closed/pullrequests-closed.json");
+        if (!executor.awaitQuiescence(1, TimeUnit.SECONDS)) {
+            fail("tardy executor");
+        }
+
+        final var afterClosed = dao.getOpenPullRequests();
+        assertThat(afterClosed).isEmpty();
+    }
+
     private static final class TestResourceJsonSupplier
             implements JsonSupplier {
         @Override
@@ -94,6 +133,7 @@ final class UnresolvedReviewIntTest {
                 url = "/activity.json";
             }
             try (var json = getClass().getResourceAsStream(url)) {
+                assert json != null : url;
                 byte[] bytes = json.readAllBytes();
                 return new String(bytes, StandardCharsets.UTF_8);
             }
