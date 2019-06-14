@@ -5,6 +5,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -71,9 +73,7 @@ final class UnresolvedReviewControllerIntTest {
         final var requestJson =
                 get("/unresolved").contentType(MediaType.APPLICATION_JSON_UTF8);
         final var matchingJsonBody =
-                content()
-                        .json(
-                                "[{\"destination\":\"bar-dest\",\"title\":\"bar\",\"age\":\"1d 3h 12m\"}]");
+                content().json(read("/unresolved-review.json"));
         final var matchingMediaType =
                 content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON);
 
@@ -82,5 +82,12 @@ final class UnresolvedReviewControllerIntTest {
                 .andExpect(status().isOk())
                 .andExpect(matchingMediaType)
                 .andExpect(matchingJsonBody);
+    }
+
+    private String read(String file) throws IOException {
+        try (var json = getClass().getResourceAsStream(file)) {
+            byte[] bytes = json.readAllBytes();
+            return new String(bytes, StandardCharsets.UTF_8);
+        }
     }
 }
