@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Unresolved Reviews</title>
+    <style>
+.number {
+  text-align: right;
+}
+    </style>
 </head>
 <body>
 <table>
@@ -18,8 +23,8 @@
         <td>${pr.destination}</td>
         <td><a href="${pr.url}">${pr.title}</a></td>
         <td>${pr.age}</td>
-        <td>${pr.commentCount}</td>
-        <td>${pr.taskCount}</td>
+        <td class="number">${pr.commentCount}</td>
+        <td class="number">${pr.taskCount}</td>
     </tr>
     </#list>
 </table>

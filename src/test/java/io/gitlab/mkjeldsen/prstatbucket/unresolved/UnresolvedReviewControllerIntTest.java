@@ -58,8 +58,10 @@ final class UnresolvedReviewControllerIntTest {
                                         containsString("<td>foo-dest</td>"),
                                         containsString(
                                                 "<td><a href=\"https://pr.example\">foo</a></td>"),
-                                        containsString("<td>37</td>"),
-                                        containsString("<td>9</td>"),
+                                        containsString(
+                                                "<td class=\"number\">37</td>"),
+                                        containsString(
+                                                "<td class=\"number\">9</td>"),
                                         containsString("<td>2h</td>")));
 
         this.mockMvc
