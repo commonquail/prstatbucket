@@ -91,7 +91,7 @@ final class UnresolvedReviewIntTest {
         // must accurately reflect this change.
         //
         // Ingest an open PR, then ingest it again with some closed state.
-        // Expect no open PRs.
+        // Expect it to no longer be open.
 
         final var executor = new ForkJoinPool();
         final var ingester =
@@ -108,11 +108,10 @@ final class UnresolvedReviewIntTest {
         final var beforeClosed = dao.getOpenPullRequests();
 
         assertThat(beforeClosed)
-                .hasSize(1)
-                .first()
+                .isNotEmpty()
                 .extracting(UnresolvedReview::getTitle)
                 .describedAs("title")
-                .isEqualTo("Some open, then closed PR");
+                .contains("Some open, then closed PR");
 
         ingester.ingest("/bug/open-to-closed/pullrequests-closed.json");
         if (!executor.awaitQuiescence(1, TimeUnit.SECONDS)) {
@@ -120,7 +119,10 @@ final class UnresolvedReviewIntTest {
         }
 
         final var afterClosed = dao.getOpenPullRequests();
-        assertThat(afterClosed).isEmpty();
+        assertThat(afterClosed)
+                .extracting(UnresolvedReview::getTitle)
+                .describedAs("title")
+                .doesNotContain("Some open, then closed PR");
     }
 
     private static final class TestResourceJsonSupplier
