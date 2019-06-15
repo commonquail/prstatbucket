@@ -15,6 +15,8 @@ public final class UnresolvedReviewDao implements UnresolvedReviewService {
                     + " pr_url,"
                     + " destination,"
                     + " title,"
+                    + " comment_count,"
+                    + " task_count,"
                     + " created_ts"
                     + " FROM pull_request"
                     + " WHERE state = 'OPEN' ORDER BY created_ts ASC, title";

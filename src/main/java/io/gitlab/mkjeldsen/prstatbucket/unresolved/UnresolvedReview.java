@@ -15,17 +15,25 @@ public final class UnresolvedReview implements Comparable<UnresolvedReview> {
 
     private final String age;
 
+    private final int commentCount;
+
+    private final int taskCount;
+
     public UnresolvedReview(
             String url,
             String destination,
             String title,
             Duration rawAge,
-            String age) {
+            String age,
+            int commentCount,
+            int taskCount) {
         this.url = url;
         this.destination = Objects.requireNonNull(destination);
         this.title = Objects.requireNonNull(title);
         this.rawAge = Objects.requireNonNull(rawAge);
         this.age = Objects.requireNonNull(age);
+        this.commentCount = commentCount;
+        this.taskCount = taskCount;
     }
 
     public String getTitle() {
@@ -44,6 +52,14 @@ public final class UnresolvedReview implements Comparable<UnresolvedReview> {
         return url;
     }
 
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public int getTaskCount() {
+        return taskCount;
+    }
+
     @Override
     public String toString() {
         return "UnresolvedReview{"
@@ -59,6 +75,10 @@ public final class UnresolvedReview implements Comparable<UnresolvedReview> {
                 + ", age='"
                 + age
                 + '\''
+                + ", commentCount="
+                + commentCount
+                + ", taskCount="
+                + taskCount
                 + '}';
     }
 

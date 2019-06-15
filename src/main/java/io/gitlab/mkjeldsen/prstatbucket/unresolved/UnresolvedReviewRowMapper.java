@@ -28,8 +28,17 @@ public final class UnresolvedReviewRowMapper
         final var createdTs = rs.getTimestamp("created_ts").toInstant();
         final var age = Duration.between(createdTs, now);
 
+        final var commentCount = rs.getInt("comment_count");
+        final var taskCount = rs.getInt("task_count");
+
         return new UnresolvedReview(
-                url, destination, title, age, prettyAge(age));
+                url,
+                destination,
+                title,
+                age,
+                prettyAge(age),
+                commentCount,
+                taskCount);
     }
 
     private static String prettyAge(Duration age) {

@@ -72,6 +72,9 @@ final class UnresolvedReviewIntTest {
                             assertThat(pullRequest.getAge())
                                     .describedAs("age")
                                     .isEqualTo("95d 11h 57m");
+                            assertThat(pullRequest.getCommentCount())
+                                    .isEqualTo(1);
+                            assertThat(pullRequest.getTaskCount()).isEqualTo(2);
                         })
                 .anySatisfy(
                         pullRequest -> {
@@ -81,6 +84,9 @@ final class UnresolvedReviewIntTest {
                             assertThat(pullRequest.getAge())
                                     .describedAs("age")
                                     .isEqualTo("7d 18h");
+                            assertThat(pullRequest.getCommentCount())
+                                    .isEqualTo(0);
+                            assertThat(pullRequest.getTaskCount()).isEqualTo(0);
                         });
     }
 
