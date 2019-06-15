@@ -10,7 +10,7 @@
         <th>Destination</th>
         <th>Title</th>
         <th>Age</th>
-    <tr>
+    </tr>
     <#list pullRequests as pr>
     <tr>
         <td>${pr.destination}</td>
