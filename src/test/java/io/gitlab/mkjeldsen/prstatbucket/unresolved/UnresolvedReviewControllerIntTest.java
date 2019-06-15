@@ -1,5 +1,6 @@
 package io.gitlab.mkjeldsen.prstatbucket.unresolved;
 
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -49,7 +50,13 @@ final class UnresolvedReviewControllerIntTest {
         final var matchingMediaType =
                 content().contentTypeCompatibleWith(MediaType.TEXT_HTML);
         final var matchingSubstring =
-                content().string(containsString("<td>2h</td>"));
+                content()
+                        .string(
+                                allOf(
+                                        containsString("<td>foo-dest</td>"),
+                                        containsString(
+                                                "<td><a href=\"https://pr.example\">foo</a></td>"),
+                                        containsString("<td>2h</td>")));
 
         this.mockMvc
                 .perform(requestDefault)
