@@ -5,37 +5,37 @@
       "description": "",
       "links": {
         "decline": {
-          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo2/pullrequests/1/decline"
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/pullrequests/1/decline"
         },
         "commits": {
-          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo2/pullrequests/1/commits"
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/pullrequests/1/commits"
         },
         "self": {
-          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo2/pullrequests/1"
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/pullrequests/1"
         },
         "comments": {
-          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo2/pullrequests/1/comments"
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/pullrequests/1/comments"
         },
         "merge": {
-          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo2/pullrequests/1/merge"
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/pullrequests/1/merge"
         },
         "html": {
-          "href": "https://bitbucket.org/repoowner1/repo2/pull-requests/1"
+          "href": "https://bitbucket.org/repoowner1/repo4/pull-requests/1"
         },
         "activity": {
-          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo2/pullrequests/1/activity"
+          "href": "/activity-empty.json"
         },
         "diff": {
-          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo2/pullrequests/1/diff"
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/pullrequests/1/diff"
         },
         "approve": {
-          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo2/pullrequests/1/approve"
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/pullrequests/1/approve"
         },
         "statuses": {
-          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo2/pullrequests/1/statuses"
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/pullrequests/1/statuses"
         }
       },
-      "title": "Some open PR in another repo",
+      "title": "Some open PR reporting zero comments",
       "close_source_branch": true,
       "type": "pullrequest",
       "id": 1,
@@ -45,20 +45,20 @@
           "type": "commit",
           "links": {
             "self": {
-              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo2/commit/ca9d6e9b6486"
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/commit/ca9d6e9b6486"
             },
             "html": {
-              "href": "https://bitbucket.org/repoowner1/repo2/commits/ca9d6e9b6486"
+              "href": "https://bitbucket.org/repoowner1/repo4/commits/ca9d6e9b6486"
             }
           }
         },
         "repository": {
           "links": {
             "self": {
-              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo2"
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4"
             },
             "html": {
-              "href": "https://bitbucket.org/repoowner1/repo2"
+              "href": "https://bitbucket.org/repoowner1/repo4"
             },
             "avatar": {
               "href": "https://imgsrc.example"
@@ -66,7 +66,7 @@
           },
           "type": "repository",
           "name": "Repo 1",
-          "full_name": "repoowner1/repo2",
+          "full_name": "repoowner1/repo4",
           "uuid": "{06a9e4a8-4576-49c4-b8f0-95bbc7717b87}"
         },
         "branch": {
@@ -86,20 +86,20 @@
           "type": "commit",
           "links": {
             "self": {
-              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo2/commit/db2ff55384ae"
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/commit/db2ff55384ae"
             },
             "html": {
-              "href": "https://bitbucket.org/repoowner1/repo2/commits/db2ff55384ae"
+              "href": "https://bitbucket.org/repoowner1/repo4/commits/db2ff55384ae"
             }
           }
         },
         "repository": {
           "links": {
             "self": {
-              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo2"
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4"
             },
             "html": {
-              "href": "https://bitbucket.org/repoowner1/repo2"
+              "href": "https://bitbucket.org/repoowner1/repo4"
             },
             "avatar": {
               "href": "https://imgsrc.example"
@@ -107,8 +107,8 @@
           },
           "type": "repository",
           "name": "Repo 1",
-          "full_name": "repoowner1/repo2",
-          "uuid": "{7a90c5bf-240a-49a8-942b-1ae79cf3419a}"
+          "full_name": "repoowner1/repo4",
+          "uuid": "{0623a895-0db5-4eb6-888e-460ed9e68d26}"
         },
         "branch": {
           "name": "open"
@@ -116,7 +116,7 @@
       },
       "comment_count": 0,
       "state": "OPEN",
-      "task_count": 0,
+      "task_count": 2,
       "reason": "",
       "updated_on": "2019-06-02T13:17:32.374868+00:00",
       "author": {

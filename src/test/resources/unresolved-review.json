@@ -3,6 +3,8 @@
     "url": "https://pr2.example",
     "destination": "bar-dest",
     "title": "bar",
-    "age": "1d 3h 12m"
+    "age": "1d 3h 12m",
+    "comment_count": 11,
+    "task_count": 19
   }
 ]
