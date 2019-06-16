@@ -1,0 +1,141 @@
+{
+  "pagelen": 10,
+  "values": [
+    {
+      "comment": {
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/pullrequests/1/comments/94891166"
+          },
+          "html": {
+            "href": "https://bitbucket.org/repoowner1/repo4/pull-requests/1/_/diff#comment-94891166"
+          }
+        },
+        "deleted": false,
+        "pullrequest": {
+          "type": "pullrequest",
+          "id": 1,
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/pullrequests/1"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo4/pull-requests/1"
+            }
+          },
+          "title": "Some PR title"
+        },
+        "content": {
+          "raw": "Comment, not deleted",
+          "markup": "markdown",
+          "html": "<p>Comment, not deleted</p>",
+          "type": "rendered"
+        },
+        "created_on": "2019-03-13T16:45:48.364789+00:00",
+        "user": {
+          "username": "author2",
+          "display_name": "Author 2",
+          "uuid": "{25a9e1a0-65d4-497a-a9cd-968822cb427e}",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/users/%7B25a9e1a0-65d4-497a-a9cd-968822cb427e%7D"
+            },
+            "html": {
+              "href": "https://bitbucket.org/%7B25a9e1a0-65d4-497a-a9cd-968822cb427e%7D/"
+            },
+            "avatar": {
+              "href": "https://imgsrc.example"
+            }
+          },
+          "nickname": "Author 2",
+          "type": "user",
+          "account_id": "637029:f1dcf0dd-43b2-46ff-be64-f51ef8a46db9"
+        },
+        "updated_on": "2019-03-13T16:47:58.704514+00:00",
+        "type": "pullrequest_comment",
+        "id": 94891166
+      },
+      "pull_request": {
+        "type": "pullrequest",
+        "id": 1,
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/pullrequests/1"
+          },
+          "html": {
+            "href": "https://bitbucket.org/repoowner1/repo4/pull-requests/1"
+          }
+        },
+        "title": "Some PR title"
+      }
+    },
+    {
+      "comment": {
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/pullrequests/1/comments/94891167"
+          },
+          "html": {
+            "href": "https://bitbucket.org/repoowner1/repo4/pull-requests/1/_/diff#comment-94891167"
+          }
+        },
+        "deleted": true,
+        "pullrequest": {
+          "type": "pullrequest",
+          "id": 1,
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/pullrequests/1"
+            },
+            "html": {
+              "href": "https://bitbucket.org/repoowner1/repo4/pull-requests/1"
+            }
+          },
+          "title": "Some open PR reporting zero comments"
+        },
+        "content": {
+          "raw": "Deleted comment",
+          "markup": "markdown",
+          "html": "<p>Deleted comment</p>",
+          "type": "rendered"
+        },
+        "created_on": "2019-03-13T17:45:48.364789+00:00",
+        "user": {
+          "username": "author2",
+          "display_name": "Author 2",
+          "uuid": "{25a9e1a0-65d4-497a-a9cd-968822cb427e}",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/users/%7B25a9e1a0-65d4-497a-a9cd-968822cb427e%7D"
+            },
+            "html": {
+              "href": "https://bitbucket.org/%7B25a9e1a0-65d4-497a-a9cd-968822cb427e%7D/"
+            },
+            "avatar": {
+              "href": "https://imgsrc.example"
+            }
+          },
+          "nickname": "Author 2",
+          "type": "user",
+          "account_id": "637029:f1dcf0dd-43b2-46ff-be64-f51ef8a46db9"
+        },
+        "updated_on": "2019-03-13T17:47:58.704514+00:00",
+        "type": "pullrequest_comment",
+        "id": 94891167
+      },
+      "pull_request": {
+        "type": "pullrequest",
+        "id": 1,
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/pullrequests/1"
+          },
+          "html": {
+            "href": "https://bitbucket.org/repoowner1/repo4/pull-requests/1"
+          }
+        },
+        "title": "Some open PR reporting zero comments"
+      }
+    }
+  ]
+}

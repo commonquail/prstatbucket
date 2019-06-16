@@ -12,12 +12,11 @@ public final class PullRequestHandleConsumer
     private static final String SQL =
             ""
                     + "INSERT INTO"
-                    + " pull_request (pr_url, destination, title, author, state, created_ts, comment_count, task_count)"
-                    + " VALUES (:pr_url, :destination, :title, :author, :state, :created_ts, :comment_count, :task_count)"
+                    + " pull_request (pr_url, destination, title, author, state, created_ts, task_count)"
+                    + " VALUES (:pr_url, :destination, :title, :author, :state, :created_ts, :task_count)"
                     + " ON CONFLICT (pr_url) DO UPDATE SET"
                     + " destination = excluded.destination,"
                     + " state = excluded.state,"
-                    + " comment_count = excluded.comment_count,"
                     + " task_count = excluded.task_count,"
                     + " title = excluded.title";
 
@@ -38,7 +37,6 @@ public final class PullRequestHandleConsumer
                     .bind("state", pr.state)
                     .bind("author", hash(pr.author.uuid.toString()))
                     .bind("created_ts", pr.createdOn)
-                    .bind("comment_count", pr.commentCount)
                     .bind("task_count", pr.taskCount)
                     .add();
         }

@@ -13,6 +13,8 @@ import java.time.ZoneOffset;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Predicate;
+import org.assertj.core.api.ObjectAssert;
 import org.jdbi.v3.core.Jdbi;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -72,8 +74,6 @@ final class UnresolvedReviewIntTest {
                             assertThat(pullRequest.getAge())
                                     .describedAs("age")
                                     .isEqualTo("95d 11h 57m");
-                            assertThat(pullRequest.getCommentCount())
-                                    .isEqualTo(1);
                             assertThat(pullRequest.getTaskCount()).isEqualTo(2);
                         })
                 .anySatisfy(
@@ -84,8 +84,6 @@ final class UnresolvedReviewIntTest {
                             assertThat(pullRequest.getAge())
                                     .describedAs("age")
                                     .isEqualTo("7d 18h");
-                            assertThat(pullRequest.getCommentCount())
-                                    .isEqualTo(0);
                             assertThat(pullRequest.getTaskCount()).isEqualTo(0);
                         });
     }
@@ -129,6 +127,63 @@ final class UnresolvedReviewIntTest {
                 .extracting(UnresolvedReview::getTitle)
                 .describedAs("title")
                 .doesNotContain("Some open, then closed PR");
+    }
+
+    @Test
+    void bug_mismatched_comment_count() {
+
+        // The comment_count recorded on a PR does not always match the total
+        // comments recorded in the activity or comments endpoints. Differences
+        // cannot be explained by comment deletion, description vs. diff
+        // comments, or PR state.
+        //
+        // Ingest a PR reporting zero comments, then ingest its activity feed
+        // containing two comments, one of which is deleted. Expect
+        // comment_count == 1.
+
+        final var executor = new ForkJoinPool();
+        final var ingester =
+                new BackgroundIngester(
+                        new TestResourceJsonSupplier(), jdbi, executor);
+
+        ingester.ingest(
+                "/bug/mismatched-comment-count/pullrequests-no-comments.json");
+        if (!executor.awaitQuiescence(1, TimeUnit.SECONDS)) {
+            fail("tardy executor");
+        }
+
+        final var someClock = Clock.systemUTC();
+        final var dao = new UnresolvedReviewDao(jdbi, someClock);
+        final var beforeActivity = dao.getOpenPullRequests();
+
+        final var prTitle = "Some open PR reporting zero comments";
+        assertThatPrByTitle(beforeActivity, prTitle)
+                .extracting(UnresolvedReview::getCommentCount)
+                .describedAs("comment count")
+                .isEqualTo(0);
+
+        ingester.ingest("/bug/mismatched-comment-count/activity-comments.json");
+        if (!executor.awaitQuiescence(1, TimeUnit.SECONDS)) {
+            fail("tardy executor");
+        }
+
+        final var afterActivity = dao.getOpenPullRequests();
+        assertThatPrByTitle(afterActivity, prTitle)
+                .extracting(UnresolvedReview::getCommentCount)
+                .describedAs("comment count")
+                .isEqualTo(1);
+    }
+
+    private static ObjectAssert<UnresolvedReview> assertThatPrByTitle(
+            List<UnresolvedReview> prs, String title) {
+        return assertThat(prs)
+                .describedAs("by title: %s", title)
+                .filteredOn(hasTitle(title))
+                .first();
+    }
+
+    private static Predicate<UnresolvedReview> hasTitle(String title) {
+        return pr -> title.equals(pr.getTitle());
     }
 
     private static final class TestResourceJsonSupplier

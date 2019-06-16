@@ -25,7 +25,11 @@ public final class PullRequest {
     public final Instant createdOn;
     public final Summary summary;
     public final Source source;
+
+    /** This value cannot be relied upon and must be calculated manually. */
+    @Deprecated
     public final int commentCount;
+
     public final State state;
     public final int taskCount;
     public final String reason;

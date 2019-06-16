@@ -39,7 +39,6 @@ final class ObjectMapperTest {
         assertThat(merged.state)
                 .as("[%s] state", ctx)
                 .isSameAs(PullRequest.State.MERGED);
-        assertThat(merged.commentCount).as("[%s] comments", ctx).isEqualTo(1);
         assertThat(merged.taskCount).as("[%s] tasks", ctx).isEqualTo(0);
         assertThat(merged.links.activity.href)
                 .as("[%s] activity href", ctx)
@@ -69,7 +68,6 @@ final class ObjectMapperTest {
         assertThat(open.state)
                 .as("[%s] state", ctx)
                 .isSameAs(PullRequest.State.OPEN);
-        assertThat(open.commentCount).as("[%s] comments", ctx).isEqualTo(1);
         assertThat(open.taskCount).as("[%s] tasks", ctx).isEqualTo(2);
         assertThat(open.links.activity.href)
                 .as("[%s] activity href", ctx)
@@ -99,7 +97,6 @@ final class ObjectMapperTest {
         assertThat(declined.state)
                 .as("[%s] state", ctx)
                 .isSameAs(PullRequest.State.DECLINED);
-        assertThat(declined.commentCount).as("[%s] comments", ctx).isEqualTo(0);
         assertThat(declined.taskCount).as("[%s] tasks", ctx).isEqualTo(0);
         assertThat(declined.links.activity.href)
                 .as("[%s] activity href", ctx)
