@@ -54,11 +54,6 @@ public final class BackgroundIngester implements Ingester {
         return om;
     }
 
-    private static boolean isClosedPr(PullRequest pr) {
-        // Database will guard against "UNKNOWN".
-        return pr.state != PullRequest.State.OPEN;
-    }
-
     private static String extractActivityUrl(PullRequest pr) {
         return pr.links.activity.href;
     }
@@ -97,7 +92,6 @@ public final class BackgroundIngester implements Ingester {
 
                 prs.values
                         .stream()
-                        .filter(BackgroundIngester::isClosedPr)
                         .map(BackgroundIngester::extractActivityUrl)
                         .forEach(this::ingest);
 
