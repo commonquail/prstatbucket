@@ -58,7 +58,17 @@ public final class UnresolvedReviewRowMapper
         if (minutes > 0) {
             str.append(minutes).append('m');
         } else {
-            str.deleteCharAt(str.length() - 1);
+            // str may end with a space, which we don't want. Although this can
+            // happen in the wild iff 0s <= age < 60s, in tests running on a
+            // dirty database it happens frequently: pull requests created after
+            // test code is eventually created "in the future", such that
+            // age.isNegative() == true. In that case this trim would trigger
+            // out-of-bounds without the guard.
+
+            final int end;
+            if ((end = str.length() - 1) > 0) {
+                str.deleteCharAt(end);
+            }
         }
 
         return str.toString();
