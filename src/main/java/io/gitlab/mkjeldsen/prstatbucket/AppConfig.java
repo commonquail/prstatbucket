@@ -111,7 +111,17 @@ public class AppConfig {
 
     @Bean("ingester")
     public Ingester ingester(JsonSupplier jsonSupplier) {
-        return new BackgroundIngester(jsonSupplier, jdbi(), executor());
+        return new BackgroundIngester(
+                PullRequestStateFilter.all(), jsonSupplier, jdbi(), executor());
+    }
+
+    @Bean("unresolvedPrIngester")
+    public Ingester unresolvedPrIngester(JsonSupplier jsonSupplier) {
+        return new BackgroundIngester(
+                PullRequestStateFilter.open(),
+                jsonSupplier,
+                jdbi(),
+                executor());
     }
 
     @Bean
