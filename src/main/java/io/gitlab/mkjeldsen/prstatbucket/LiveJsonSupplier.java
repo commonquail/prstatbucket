@@ -8,7 +8,6 @@ import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import com.github.scribejava.httpclient.okhttp.OkHttpHttpClientConfig;
 import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +19,9 @@ public final class LiveJsonSupplier implements JsonSupplier {
 
     private final OAuth20Service service;
 
-    private final CompletableFuture<OAuth2AccessToken> grant;
+    private volatile OAuth2AccessToken grant;
+
+    private volatile long then;
 
     public LiveJsonSupplier(String clientId, String secret) {
         service =
@@ -30,15 +31,8 @@ public final class LiveJsonSupplier implements JsonSupplier {
                                 OkHttpHttpClientConfig.defaultConfig())
                         .build(new BitbucketApi());
 
-        grant = CompletableFuture.supplyAsync(this::init);
-    }
-
-    private OAuth2AccessToken init() {
-        try {
-            return service.getAccessTokenClientCredentialsGrant();
-        } catch (IOException | InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
-        }
+        then = 0;
+        grant = new OAuth2AccessToken("expired-dummy");
     }
 
     @Override
@@ -46,13 +40,27 @@ public final class LiveJsonSupplier implements JsonSupplier {
         LOG.info("Retrieve '{}'", url);
 
         try {
+            ensureGrant();
+
             final var request = new OAuthRequest(Verb.GET, url);
-            service.signRequest(grant.get(), request);
+            service.signRequest(grant, request);
             final Response response = service.execute(request);
 
             return response.getBody();
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private synchronized void ensureGrant()
+            throws InterruptedException, ExecutionException, IOException {
+        final Integer expiresIn = grant.getExpiresIn();
+        final int window = Math.max(expiresIn == null ? 0 : expiresIn - 20, 0);
+
+        long now = System.currentTimeMillis() / 1000;
+        if (then <= now - window) {
+            grant = service.getAccessTokenClientCredentialsGrant();
+            then = now;
         }
     }
 
