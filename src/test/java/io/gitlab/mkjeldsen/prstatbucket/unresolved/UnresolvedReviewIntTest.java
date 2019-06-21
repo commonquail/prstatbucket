@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.fail;
 
 import io.gitlab.mkjeldsen.prstatbucket.BackgroundIngester;
 import io.gitlab.mkjeldsen.prstatbucket.JsonSupplier;
+import io.gitlab.mkjeldsen.prstatbucket.PullRequestStateFilter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.Clock;
@@ -48,7 +49,10 @@ final class UnresolvedReviewIntTest {
         final var executor = new ForkJoinPool();
         final var ingester =
                 new BackgroundIngester(
-                        new TestResourceJsonSupplier(), jdbi, executor);
+                        PullRequestStateFilter.all(),
+                        new TestResourceJsonSupplier(),
+                        jdbi,
+                        executor);
 
         ingester.ingestAll(
                 List.of("/pullrequests.json", "/more-pullrequests.json"));
@@ -100,7 +104,10 @@ final class UnresolvedReviewIntTest {
         final var executor = new ForkJoinPool();
         final var ingester =
                 new BackgroundIngester(
-                        new TestResourceJsonSupplier(), jdbi, executor);
+                        PullRequestStateFilter.all(),
+                        new TestResourceJsonSupplier(),
+                        jdbi,
+                        executor);
 
         ingester.ingest("/bug/open-to-closed/pullrequests-open.json");
         if (!executor.awaitQuiescence(1, TimeUnit.SECONDS)) {
@@ -144,7 +151,10 @@ final class UnresolvedReviewIntTest {
         final var executor = new ForkJoinPool();
         final var ingester =
                 new BackgroundIngester(
-                        new TestResourceJsonSupplier(), jdbi, executor);
+                        PullRequestStateFilter.all(),
+                        new TestResourceJsonSupplier(),
+                        jdbi,
+                        executor);
 
         ingester.ingest(
                 "/bug/mismatched-comment-count/pullrequests-no-comments.json");

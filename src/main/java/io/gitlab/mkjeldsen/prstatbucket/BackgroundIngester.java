@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RejectedExecutionException;
+import java.util.function.Predicate;
 import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,8 @@ public final class BackgroundIngester implements Ingester {
     private static final Logger LOG =
             LoggerFactory.getLogger(BackgroundIngester.class);
 
+    private final Predicate<PullRequest> pullRequestFilter;
+
     private final Jdbi jdbi;
 
     private final ForkJoinPool executor;
@@ -31,7 +34,11 @@ public final class BackgroundIngester implements Ingester {
     private final ObjectMapper objectMapper;
 
     public BackgroundIngester(
-            JsonSupplier jsonSupplier, Jdbi jdbi, ForkJoinPool executor) {
+            PullRequestStateFilter pullRequestFilter,
+            JsonSupplier jsonSupplier,
+            Jdbi jdbi,
+            ForkJoinPool executor) {
+        this.pullRequestFilter = pullRequestFilter;
         this.jdbi = jdbi;
         this.executor = executor;
         this.jsonSupplier = jsonSupplier;
@@ -92,6 +99,7 @@ public final class BackgroundIngester implements Ingester {
 
                 prs.values
                         .stream()
+                        .filter(pullRequestFilter)
                         .map(BackgroundIngester::extractActivityUrl)
                         .forEach(this::ingest);
 
