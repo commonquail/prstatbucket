@@ -1,9 +1,11 @@
 package io.gitlab.mkjeldsen.prstatbucket.apimodel;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.Instant;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class PullRequest {
 
     public enum State {

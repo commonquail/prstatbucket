@@ -1,8 +1,10 @@
 package io.gitlab.mkjeldsen.prstatbucket.apimodel;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.Instant;
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class Comment {
 
     public final String url;
