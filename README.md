@@ -118,6 +118,23 @@ this authentication flow and should not point to an existing resource.
 
 [auth]: https://developer.atlassian.com/bitbucket/api/2/reference/meta/authentication "Bitbucket API authentication details"
 
+## Developing
+
+Much work is possible with a plain Java 11 enabled `mvn test`.
+
+Some tests require a database, via `docker-compose up`, and must be invoked
+with `mvn -Dsmoke.tests.enabled test`.
+
+### Releasing
+
+Perform and clean up after a new release with
+
+```sh
+mvn release:prepare release:clean
+```
+
+Do not use `release:perform`.
+
 # License: GPL-3.0-or-later
 
 Prstatbucket
