@@ -7,6 +7,9 @@
         "decline": {
           "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/3/decline"
         },
+        "diffstat": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/diffstat/repoowner1/repo1:a92a869793b5%0D5466393f4e89?from_pullrequest_id=3"
+        },
         "commits": {
           "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/3/commits"
         },
@@ -176,6 +179,9 @@
         "decline": {
           "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2/decline"
         },
+        "diffstat": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/diffstat/repoowner1/repo1:a92a869793b5%0D5466393f4e89?from_pullrequest_id=2"
+        },
         "commits": {
           "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/2/commits"
         },
@@ -315,6 +321,9 @@
       "links": {
         "decline": {
           "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/1/decline"
+        },
+        "diffstat": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/diffstat/repoowner1/repo1:a92a869793b5%0D5466393f4e89?from_pullrequest_id=1"
         },
         "commits": {
           "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo1/pullrequests/1/commits"

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public final class Links {
 
     public final Link decline;
+    public final Link diffstat;
     public final Link commits;
     public final Link self;
     public final Link comments;
@@ -15,20 +16,9 @@ public final class Links {
     public final Link approve;
     public final Link statuses;
 
-    /**
-     * @param approve
-     * @param diff
-     * @param merge
-     * @param decline
-     * @param html
-     * @param self
-     * @param commits
-     * @param statuses
-     * @param activity
-     * @param comments
-     */
     public Links(
             @JsonProperty("decline") Link decline,
+            @JsonProperty("diffstat") Link diffstat,
             @JsonProperty("commits") Link commits,
             @JsonProperty("self") Link self,
             @JsonProperty("comments") Link comments,
@@ -40,6 +30,7 @@ public final class Links {
             @JsonProperty("statuses") Link statuses) {
         super();
         this.decline = decline;
+        this.diffstat = diffstat;
         this.commits = commits;
         this.self = self;
         this.comments = comments;
