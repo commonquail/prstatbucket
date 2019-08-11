@@ -9,7 +9,7 @@
   </parent>
   <groupId>io.gitlab.mkjeldsen</groupId>
   <artifactId>prstatbucket</artifactId>
-  <version>1.4.1-SNAPSHOT</version>
+  <version>1.4.1</version>
   <name>prstatbucket</name>
   <description>Rudimentary Bitbucket Cloud pull request statistics</description>
 
@@ -17,7 +17,7 @@
     <connection>scm:git:git@gitlab.com:mkjeldsen/prstatbucket.git</connection>
     <developerConnection>scm:git:git@gitlab.com:mkjeldsen/prstatbucket.git</developerConnection>
     <url>https://gitlab.com/mkjeldsen/prstatbucket.git</url>
-    <tag>HEAD</tag>
+    <tag>v1.4.1</tag>
   </scm>
 
   <properties>
