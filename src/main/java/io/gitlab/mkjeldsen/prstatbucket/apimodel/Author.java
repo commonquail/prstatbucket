@@ -1,8 +1,10 @@
 package io.gitlab.mkjeldsen.prstatbucket.apimodel;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.UUID;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class Author {
 
     public final String username;

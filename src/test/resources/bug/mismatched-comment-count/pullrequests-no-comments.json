@@ -7,6 +7,9 @@
         "decline": {
           "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/pullrequests/1/decline"
         },
+        "diffstat": {
+          "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/diffstat/repoowner1/repo4:a92a869793b5%0D5466393f4e89?from_pullrequest_id=1"
+        },
         "commits": {
           "href": "https://api.bitbucket.org/2.0/repositories/repoowner1/repo4/pullrequests/1/commits"
         },

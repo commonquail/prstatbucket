@@ -1,7 +1,9 @@
 package io.gitlab.mkjeldsen.prstatbucket.apimodel;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class Links {
 
     public final Link decline;
@@ -15,18 +17,6 @@ public final class Links {
     public final Link approve;
     public final Link statuses;
 
-    /**
-     * @param approve
-     * @param diff
-     * @param merge
-     * @param decline
-     * @param html
-     * @param self
-     * @param commits
-     * @param statuses
-     * @param activity
-     * @param comments
-     */
     public Links(
             @JsonProperty("decline") Link decline,
             @JsonProperty("commits") Link commits,

@@ -1,7 +1,9 @@
 package io.gitlab.mkjeldsen.prstatbucket.apimodel;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class MergeCommit {
 
     public final String hash;
