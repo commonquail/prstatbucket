@@ -138,7 +138,7 @@ Do not use `release:perform`.
 # License: GPL-3.0-or-later
 
 Prstatbucket
-Copyright (C) 2019  Mikkel Kjeldsen
+Copyright (C) 2020  Mikkel Kjeldsen
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
