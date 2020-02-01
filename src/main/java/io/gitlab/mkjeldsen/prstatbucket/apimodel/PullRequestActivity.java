@@ -13,19 +13,19 @@ public final class PullRequestActivity {
     private final String next;
     public final Instant closedTs;
     public final List<Comment> comments;
-    public final int approvals;
+    public final List<Approval> approvals;
 
     public PullRequestActivity(
             String prUrl,
             String next,
             Instant closedTs,
             List<Comment> comments,
-            int approvals) {
+            List<Approval> approvals) {
         this.url = prUrl;
         this.next = next;
         this.closedTs = closedTs;
         this.comments = List.copyOf(comments);
-        this.approvals = approvals;
+        this.approvals = List.copyOf(approvals);
     }
 
     public Optional<String> getNext() {
@@ -50,7 +50,7 @@ public final class PullRequestActivity {
                 + ", comments=["
                 + comments.size()
                 + "], approvals="
-                + approvals
+                + approvals.size()
                 + '}';
     }
 
@@ -59,7 +59,7 @@ public final class PullRequestActivity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PullRequestActivity that = (PullRequestActivity) o;
-        return approvals == that.approvals
+        return approvals.equals(that.approvals)
                 && url.equals(that.url)
                 && Objects.equals(next, that.next)
                 && closedTs == that.closedTs

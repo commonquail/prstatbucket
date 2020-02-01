@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
+import io.gitlab.mkjeldsen.prstatbucket.apimodel.Approval;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.Comment;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequestActivity;
 import java.io.IOException;
@@ -32,7 +33,7 @@ public final class DeserializePullRequestActivity
         String nextUrl = null;
         Instant prClosedTs = null;
         final var comments = new ArrayList<Comment>();
-        int approvals = 0;
+        final var approvals = new ArrayList<Approval>();
 
         JsonNode next = node.get("next");
         if (next != null) {
@@ -80,7 +81,13 @@ public final class DeserializePullRequestActivity
 
             JsonNode approval = v.get("approval");
             if (approval != null) {
-                ++approvals;
+                var approver = getUser(approval);
+
+                Instant ts =
+                        ZonedDateTime.parse(approval.get("date").asText())
+                                .toInstant();
+
+                approvals.add(new Approval(ts, approver));
             }
 
             if (update == null && comment == null && approval == null) {
