@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
+import io.gitlab.mkjeldsen.prstatbucket.apimodel.Approval;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.Comment;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequestActivity;
 import java.io.IOException;
@@ -32,7 +33,7 @@ public final class DeserializePullRequestActivity
         String nextUrl = null;
         Instant prClosedTs = null;
         final var comments = new ArrayList<Comment>();
-        int approvals = 0;
+        final var approvals = new ArrayList<Approval>();
 
         JsonNode next = node.get("next");
         if (next != null) {
@@ -69,15 +70,7 @@ public final class DeserializePullRequestActivity
                 var url = comment.get("links").get("html").get("href").asText();
                 var content = comment.get("content").get("raw").asText();
 
-                // Use UUID. Lots of users don't have an Atlassian "account_id"
-                // value yet.
-                // https://developer.atlassian.com/cloud/bitbucket/bbc-gdpr-api-migration-guide/
-                var author =
-                        comment.path("user").path("uuid").asText("<deleted>");
-
-                if (author.charAt(0) == '{') {
-                    author = author.substring(1, author.length() - 1);
-                }
+                var author = getUser(comment);
 
                 Instant ts =
                         ZonedDateTime.parse(comment.get("created_on").asText())
@@ -88,7 +81,13 @@ public final class DeserializePullRequestActivity
 
             JsonNode approval = v.get("approval");
             if (approval != null) {
-                ++approvals;
+                var approver = getUser(approval);
+
+                Instant ts =
+                        ZonedDateTime.parse(approval.get("date").asText())
+                                .toInstant();
+
+                approvals.add(new Approval(ts, approver));
             }
 
             if (update == null && comment == null && approval == null) {
@@ -98,5 +97,16 @@ public final class DeserializePullRequestActivity
 
         return new PullRequestActivity(
                 prUrl, nextUrl, prClosedTs, comments, approvals);
+    }
+
+    private String getUser(final JsonNode node) {
+        // Use UUID. Lots of users don't have an Atlassian "account_id" value
+        // yet.
+        // https://developer.atlassian.com/cloud/bitbucket/bbc-gdpr-api-migration-guide/
+        var user = node.path("user").path("uuid").asText("<deleted>");
+        if (user.charAt(0) == '{') {
+            return user.substring(1, user.length() - 1);
+        }
+        return user;
     }
 }

@@ -20,6 +20,13 @@ public final class ActivityHandleConsumer
                     + " is_deleted = excluded.is_deleted,"
                     + " created_ts = excluded.created_ts";
 
+    private static final String SQL_UPSERT_PR_APPROVAL =
+            ""
+                    + "INSERT INTO"
+                    + " pull_request_approval (pr_url, approver, approval_ts)"
+                    + " VALUES (:pr_url, :approver, :approval_ts)"
+                    + " ON CONFLICT (pr_url, approver, approval_ts) DO NOTHING";
+
     private static final String SQL_SET_PR_CLOSED_TS =
             ""
                     + "UPDATE"
@@ -61,6 +68,19 @@ public final class ActivityHandleConsumer
                         .bind("is_deleted", c.deleted)
                         .bind("created_ts", c.createdOn)
                         .add();
+            }
+
+            batch.execute();
+        }
+
+        if (!pullRequestActivity.approvals.isEmpty()) {
+            final var batch = handle.prepareBatch(SQL_UPSERT_PR_APPROVAL);
+
+            for (final var a : pullRequestActivity.approvals) {
+                batch.bind("pr_url", pullRequestActivity.url);
+                batch.bind("approver", hash(a.approver));
+                batch.bind("approval_ts", a.date);
+                batch.add();
             }
 
             batch.execute();

@@ -3,6 +3,7 @@ package io.gitlab.mkjeldsen.prstatbucket;
 import static io.gitlab.mkjeldsen.prstatbucket.BackgroundIngester.objectMapper;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import io.gitlab.mkjeldsen.prstatbucket.apimodel.Approval;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.Comment;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequest;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequestActivity;
@@ -143,7 +144,11 @@ final class ObjectMapperTest {
                                 false,
                                 "25a9e1a0-65d4-497a-a9cd-968822cb427e"));
 
-        assertThat(activity.approvals).isEqualTo(1);
+        assertThat(activity.approvals)
+                .containsOnly(
+                        new Approval(
+                                utc("2019-05-15T09:25:58.674877+00:00"),
+                                "dc0d7577-9404-482a-85af-9a8a379ab471"));
     }
 
     private <T> T readJsonAs(String filename, Class<T> type)
