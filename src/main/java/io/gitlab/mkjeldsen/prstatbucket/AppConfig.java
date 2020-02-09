@@ -2,6 +2,8 @@ package io.gitlab.mkjeldsen.prstatbucket;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import io.gitlab.mkjeldsen.prstatbucket.duration.DurationDensityEstimateDao;
+import io.gitlab.mkjeldsen.prstatbucket.duration.DurationDensityEstimateService;
 import io.gitlab.mkjeldsen.prstatbucket.unresolved.UnresolvedReviewDao;
 import io.gitlab.mkjeldsen.prstatbucket.unresolved.UnresolvedReviewService;
 import java.nio.file.Path;
@@ -133,5 +135,10 @@ public class AppConfig {
     @Bean
     public UnresolvedReviewService unresolvedReviewDao() {
         return new UnresolvedReviewDao(jdbi(), clock());
+    }
+
+    @Bean
+    public DurationDensityEstimateService durationDensityEstimateService() {
+        return new DurationDensityEstimateDao(jdbi());
     }
 }
