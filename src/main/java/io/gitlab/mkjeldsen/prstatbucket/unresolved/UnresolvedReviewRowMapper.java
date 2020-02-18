@@ -30,6 +30,7 @@ public final class UnresolvedReviewRowMapper
 
         final var commentCount = rs.getInt("comment_count");
         final var taskCount = rs.getInt("task_count");
+        final var approvalCount = rs.getInt("approval_count");
 
         return new UnresolvedReview(
                 url,
@@ -38,7 +39,8 @@ public final class UnresolvedReviewRowMapper
                 age,
                 prettyAge(age),
                 commentCount,
-                taskCount);
+                taskCount,
+                approvalCount);
     }
 
     private static String prettyAge(Duration age) {

@@ -17,6 +17,7 @@
         <th>Age</th>
         <th>Comments</th>
         <th>Tasks</th>
+        <th>Approvals</th>
     </tr>
     <#list pullRequests as pr>
     <tr>
@@ -25,6 +26,7 @@
         <td>${pr.age}</td>
         <td class="number">${pr.commentCount}</td>
         <td class="number">${pr.taskCount}</td>
+        <td class="number">${pr.approvalCount}</td>
     </tr>
     </#list>
 </table>
