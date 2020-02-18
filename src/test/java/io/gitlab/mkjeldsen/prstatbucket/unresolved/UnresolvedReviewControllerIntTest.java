@@ -43,7 +43,8 @@ final class UnresolvedReviewControllerIntTest {
                                 Duration.ofHours(2),
                                 "2h",
                                 37,
-                                9));
+                                9,
+                                3));
 
         Mockito.when(unresolvedReviewService.getOpenPullRequests())
                 .thenReturn(someData);
@@ -62,6 +63,8 @@ final class UnresolvedReviewControllerIntTest {
                                                 "<td class=\"number\">37</td>"),
                                         containsString(
                                                 "<td class=\"number\">9</td>"),
+                                        containsString(
+                                                "<td class=\"number\">3</td>"),
                                         containsString("<td>2h</td>")));
 
         this.mockMvc
@@ -85,7 +88,8 @@ final class UnresolvedReviewControllerIntTest {
                                         .plusSeconds(42),
                                 "1d 3h 12m",
                                 11,
-                                19));
+                                19,
+                                1));
 
         Mockito.when(unresolvedReviewService.getOpenPullRequests())
                 .thenReturn(someData);

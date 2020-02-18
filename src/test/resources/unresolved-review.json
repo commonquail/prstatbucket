@@ -5,6 +5,7 @@
     "title": "bar",
     "age": "1d 3h 12m",
     "comment_count": 11,
-    "task_count": 19
+    "task_count": 19,
+    "approval_count": 1
   }
 ]
