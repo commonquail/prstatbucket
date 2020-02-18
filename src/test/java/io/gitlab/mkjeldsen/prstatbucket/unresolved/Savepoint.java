@@ -22,8 +22,10 @@ final class Savepoint {
 
     public static Savepoint create(Handle handle) {
         return handle.select(
-                        "SELECT max(pr_id) AS pr_id, max(c_id) AS c_id, max(a_id) as a_id"
-                                + " FROM pull_request, pull_request_comment, pull_request_approval")
+                        "SELECT "
+                                + " (SELECT max(pr_id) FROM pull_request) pr_id,"
+                                + " (SELECT max(c_id) FROM pull_request_comment) c_id,"
+                                + " (SELECT max(a_id) FROM pull_request_approval) a_id")
                 .map(Savepoint::map)
                 .first();
     }
