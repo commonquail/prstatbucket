@@ -8,6 +8,17 @@ spring:
   freemarker:
     cache: "true"
     expose-spring-macro-helpers: "true"
+  resources:
+    cache:
+      cachecontrol:
+        cache-public: "true"
+        max-age: "365d"
+    static-locations:
+      - "classpath:/static/"
+    chain:
+      strategy:
+        content:
+          paths: "/js/**,/css/**"
 
 flyway:
   user: flyway
