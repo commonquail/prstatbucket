@@ -5,6 +5,8 @@ logging:
 spring:
   jackson:
     property-naming-strategy: SNAKE_CASE
+  freemarker:
+    cache: "true"
 
 flyway:
   user: flyway
