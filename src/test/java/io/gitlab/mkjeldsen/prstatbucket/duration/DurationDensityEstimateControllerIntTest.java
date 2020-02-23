@@ -47,8 +47,8 @@ final class DurationDensityEstimateControllerIntTest {
         final var pageTitle =
                 containsString("<title>Duration Density Estimates</title>");
         final var d3Dependency = containsString("d3.v5.min.js");
-        final var bundleScript = containsString("\"/js/bundle.js");
-        final var stylesheet = containsString("\"/css/duration-density.css");
+        final var bundleScript = containsString("\"/js/bundle-");
+        final var stylesheet = containsString("\"/css/duration-density-");
         final var appScript = containsString("Main.durationDensity()");
         final var plotRegion = containsString("id=\"canvas\"");
         final var pageContents =

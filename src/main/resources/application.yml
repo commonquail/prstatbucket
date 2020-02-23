@@ -18,6 +18,7 @@ spring:
     chain:
       strategy:
         content:
+          enabled: "true"
           paths: "/js/**,/css/**"
 
 flyway:
