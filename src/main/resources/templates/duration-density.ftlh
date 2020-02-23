@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <#import "spring.ftl" as spring />
     <#assign appjs = "/js/bundle.js">
     <#assign appcss = "/css/duration-density.css">
     <meta charset="UTF-8">
     <title>Duration Density Estimates</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="${appjs}"></script>
+    <script src="<@spring.url appjs/>"></script>
     <script>Main.durationDensity()</script>
-    <link rel="stylesheet" href="${appcss}">
+    <link rel="stylesheet" href="<@spring.url appcss/>">
 </head>
 <body>
     <h1>Density estimate report of durations</h1>
