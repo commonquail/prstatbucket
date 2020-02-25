@@ -126,7 +126,12 @@ public class AppConfig {
     }
 
     @Bean
+    public Clock clock() {
+        return Clock.systemUTC();
+    }
+
+    @Bean
     public UnresolvedReviewService unresolvedReviewDao() {
-        return new UnresolvedReviewDao(jdbi(), Clock.systemUTC());
+        return new UnresolvedReviewDao(jdbi(), clock());
     }
 }
