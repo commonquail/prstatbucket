@@ -1,5 +1,6 @@
 package io.gitlab.mkjeldsen.prstatbucket.duration;
 
+import static java.util.Collections.emptyList;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
@@ -9,12 +10,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.gitlab.mkjeldsen.prstatbucket.AppConfig;
+import java.time.Clock;
+import java.time.Instant;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
@@ -35,7 +40,16 @@ final class DurationDensityEstimateControllerIntTest {
     private MockMvc mockMvc;
 
     @MockBean
+    private Clock clock;
+
+    @MockBean
+    @Qualifier("cachingDurationDensityEstimateService")
     private DurationDensityEstimateService service;
+
+    @BeforeEach
+    void setUp() {
+        when(clock.instant()).thenReturn(Clock.systemUTC().instant());
+    }
 
     @Test
     void serves_html_by_default() throws Exception {
@@ -109,6 +123,55 @@ final class DurationDensityEstimateControllerIntTest {
                 .andExpect(matchingAttachment)
                 .andExpect(matchingLength)
                 .andExpect(matchingCsvBody);
+    }
+
+    @Test
+    void caches_unmodified_response() throws Exception {
+
+        final var someReport = DurationDensityReport.cycle_time;
+
+        when(service.dataFor(someReport)).thenReturn(emptyList());
+
+        final var path = "/duration/density/" + someReport + ".csv";
+
+        final var uncachedRequest = get(path).contentType("text/csv");
+
+        final var matchingMediaType =
+                content().contentTypeCompatibleWith("text/csv");
+
+        final var someLastModified = Instant.ofEpochSecond(10);
+        final var matchingLastModified =
+                header().dateValue(
+                                HttpHeaders.LAST_MODIFIED,
+                                someLastModified.toEpochMilli());
+
+        when(clock.instant()).thenReturn(someLastModified);
+
+        this.mockMvc
+                .perform(uncachedRequest)
+                .andExpect(status().isOk())
+                .andExpect(matchingLastModified);
+
+        final var cachedRequest =
+                get(path)
+                        .header(
+                                HttpHeaders.IF_MODIFIED_SINCE,
+                                someLastModified.toEpochMilli())
+                        .contentType("text/csv");
+
+        final var noAttachment =
+                header().doesNotExist(HttpHeaders.CONTENT_DISPOSITION);
+        final var noLength = header().doesNotExist(HttpHeaders.CONTENT_LENGTH);
+        final var noBody = content().string("");
+
+        this.mockMvc
+                .perform(cachedRequest)
+                .andExpect(status().isNotModified())
+                .andExpect(matchingMediaType)
+                .andExpect(noAttachment)
+                .andExpect(noLength)
+                .andExpect(matchingLastModified)
+                .andExpect(noBody);
     }
 
     @Test

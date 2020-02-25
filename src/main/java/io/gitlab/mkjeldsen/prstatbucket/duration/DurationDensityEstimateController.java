@@ -1,8 +1,12 @@
 package io.gitlab.mkjeldsen.prstatbucket.duration;
 
+import com.github.benmanes.caffeine.cache.Cache;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.Clock;
+import java.time.Instant;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -10,17 +14,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/duration")
 public class DurationDensityEstimateController {
 
+    private final Clock clock;
+
     private final DurationDensityEstimateService service;
 
+    private final Cache<DurationDensityReport, Long> lastModifiedCache;
+
     public DurationDensityEstimateController(
-            final DurationDensityEstimateService service) {
+            final Clock clock,
+            @Qualifier("cachingDurationDensityEstimateService")
+                    final DurationDensityEstimateService service,
+            final Cache<DurationDensityReport, Long> lastModifiedCache) {
+        this.clock = clock;
         this.service = service;
+        this.lastModifiedCache = lastModifiedCache;
     }
 
     @GetMapping("/density")
@@ -38,6 +52,7 @@ public class DurationDensityEstimateController {
             consumes = "text/csv",
             produces = "text/csv")
     public void asCsv(
+            final WebRequest request,
             final HttpServletResponse response,
             @PathVariable("report") final String reportName)
             throws IOException {
@@ -50,6 +65,14 @@ public class DurationDensityEstimateController {
             report = DurationDensityReport.valueOf(reportName);
         } catch (IllegalArgumentException iae) {
             response.setStatus(HttpStatus.NOT_FOUND.value());
+            return;
+        }
+
+        final Long lastModified =
+                lastModifiedCache.get(
+                        report, ignore -> Instant.now(clock).toEpochMilli());
+        assert lastModified != null : "currentTimeMillis() returned null";
+        if (request.checkNotModified(lastModified)) {
             return;
         }
 

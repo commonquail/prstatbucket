@@ -10,6 +10,7 @@ import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit.jupiter.EnabledIf;
@@ -22,6 +23,7 @@ final class DurationDensityEstimateServiceTest {
     private Jdbi jdbi;
 
     @Autowired
+    @Qualifier("durationDensityEstimateService")
     private DurationDensityEstimateService service;
 
     private static final String INSERT_PR =
