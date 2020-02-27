@@ -1,11 +1,20 @@
 package io.gitlab.mkjeldsen.prstatbucket;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import io.gitlab.mkjeldsen.prstatbucket.duration.CachingDurationDensityEstimateService;
+import io.gitlab.mkjeldsen.prstatbucket.duration.DurationDensityEstimateDao;
+import io.gitlab.mkjeldsen.prstatbucket.duration.DurationDensityEstimateService;
+import io.gitlab.mkjeldsen.prstatbucket.duration.DurationDensityReport;
+import io.gitlab.mkjeldsen.prstatbucket.duration.StartEndRecord;
 import io.gitlab.mkjeldsen.prstatbucket.unresolved.UnresolvedReviewDao;
 import io.gitlab.mkjeldsen.prstatbucket.unresolved.UnresolvedReviewService;
 import java.nio.file.Path;
 import java.time.Clock;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -126,7 +135,41 @@ public class AppConfig {
     }
 
     @Bean
+    public Clock clock() {
+        return Clock.systemUTC();
+    }
+
+    @Bean
     public UnresolvedReviewService unresolvedReviewDao() {
-        return new UnresolvedReviewDao(jdbi(), Clock.systemUTC());
+        return new UnresolvedReviewDao(jdbi(), clock());
+    }
+
+    @Bean
+    public DurationDensityEstimateService durationDensityEstimateService() {
+        return new DurationDensityEstimateDao(jdbi());
+    }
+
+    @Bean
+    public DurationDensityEstimateService
+            cachingDurationDensityEstimateService() {
+        return new CachingDurationDensityEstimateService(
+                durationDensityCache());
+    }
+
+    @Bean
+    public LoadingCache<DurationDensityReport, List<StartEndRecord>>
+            durationDensityCache() {
+        return Caffeine.newBuilder()
+                .expireAfterWrite(Duration.ofMinutes(10))
+                .maximumSize(1_000)
+                .build(durationDensityEstimateService()::dataFor);
+    }
+
+    @Bean
+    public Cache<DurationDensityReport, Long> lastModifiedCache() {
+        return Caffeine.newBuilder()
+                .expireAfterWrite(Duration.ofMinutes(10))
+                .maximumSize(1_000)
+                .build();
     }
 }

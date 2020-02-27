@@ -1,6 +1,9 @@
 *.jar
+*.map
 .env
 .idea/
+[A-Z]*.js
 config/
+node_modules/
 schemaspy/
 target/

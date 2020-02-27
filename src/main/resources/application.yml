@@ -7,6 +7,19 @@ spring:
     property-naming-strategy: SNAKE_CASE
   freemarker:
     cache: "true"
+    expose-spring-macro-helpers: "true"
+  resources:
+    cache:
+      cachecontrol:
+        cache-public: "true"
+        max-age: "365d"
+    static-locations:
+      - "classpath:/static/"
+    chain:
+      strategy:
+        content:
+          enabled: "true"
+          paths: "/js/**,/css/**"
 
 flyway:
   user: flyway
