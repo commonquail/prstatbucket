@@ -95,7 +95,7 @@ final class UnresolvedReviewControllerIntTest {
                 .thenReturn(someData);
 
         final var requestJson =
-                get("/unresolved").contentType(MediaType.APPLICATION_JSON_UTF8);
+                get("/unresolved").contentType(MediaType.APPLICATION_JSON);
         final var matchingJsonBody =
                 content().json(read("/unresolved-review.json"));
         final var matchingMediaType =

@@ -25,8 +25,8 @@ public class PrstatbucketApplication {
         final String database = env.getProperty("db.database");
 
         final var psql = new PGSimpleDataSource();
-        psql.setServerName(server);
-        psql.setPortNumber(port);
+        psql.setServerNames(new String[] {server});
+        psql.setPortNumbers(new int[] {port});
         psql.setDatabaseName(database);
         psql.setUser(user);
         psql.setPassword(password);

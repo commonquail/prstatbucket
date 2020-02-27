@@ -40,7 +40,7 @@ public class UnresolvedReviewController {
 
     @GetMapping(
             value = "/unresolved",
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<List<UnresolvedReview>> asJson() {
         final var pullRequests = unresolvedReviewService.getOpenPullRequests();

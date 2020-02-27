@@ -54,8 +54,9 @@ public class AppConfig {
         psql.setUser(env.getProperty("db.user"));
         psql.setPassword(env.getProperty("db.password"));
         psql.setDatabaseName(env.getProperty("db.database"));
-        psql.setServerName(env.getProperty("db.server"));
-        psql.setPortNumber(Integer.parseInt(env.getProperty("db.port")));
+        psql.setServerNames(new String[] {env.getProperty("db.server")});
+        psql.setPortNumbers(
+                new int[] {Integer.parseInt(env.getProperty("db.port"))});
         psql.setApplicationName("prstatbucket");
 
         final var hikariConfig = new HikariConfig();
