@@ -22,7 +22,7 @@
 
   <properties>
     <java.version>11</java.version>
-    <jdbi.version>3.8.2</jdbi.version>
+    <jdbi.version>3.12.2</jdbi.version>
     <scribejava.version>6.9.0</scribejava.version>
   </properties>
 
