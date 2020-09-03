@@ -15,14 +15,14 @@ public final class Comment {
 
     public final boolean deleted;
 
-    public final String author;
+    public final User author;
 
     public Comment(
             String url,
             String content,
             Instant createdOn,
             boolean deleted,
-            String author) {
+            User author) {
         this.url = url;
         this.content = content;
         this.createdOn = createdOn;

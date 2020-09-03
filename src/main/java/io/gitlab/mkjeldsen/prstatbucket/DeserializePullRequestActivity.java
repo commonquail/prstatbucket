@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.Approval;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.Comment;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequestActivity;
+import io.gitlab.mkjeldsen.prstatbucket.apimodel.User;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.ZonedDateTime;
@@ -70,7 +71,7 @@ public final class DeserializePullRequestActivity
                 var url = comment.get("links").get("html").get("href").asText();
                 var content = comment.get("content").get("raw").asText();
 
-                var author = getUser(comment);
+                var author = getUser(p, comment);
 
                 Instant ts =
                         ZonedDateTime.parse(comment.get("created_on").asText())
@@ -81,7 +82,7 @@ public final class DeserializePullRequestActivity
 
             JsonNode approval = v.get("approval");
             if (approval != null) {
-                var approver = getUser(approval);
+                var approver = getUser(p, approval);
 
                 Instant ts =
                         ZonedDateTime.parse(approval.get("date").asText())
@@ -99,14 +100,12 @@ public final class DeserializePullRequestActivity
                 prUrl, nextUrl, prClosedTs, comments, approvals);
     }
 
-    private String getUser(final JsonNode node) {
-        // Use UUID. Lots of users don't have an Atlassian "account_id" value
-        // yet.
-        // https://developer.atlassian.com/cloud/bitbucket/bbc-gdpr-api-migration-guide/
-        var user = node.path("user").path("uuid").asText("<deleted>");
-        if (user.charAt(0) == '{') {
-            return user.substring(1, user.length() - 1);
+    private User getUser(final JsonParser p, final JsonNode node)
+            throws IOException {
+        final var userNode = node.path("user");
+        if (userNode.isEmpty()) {
+            return User.DELETED;
         }
-        return user;
+        return userNode.traverse(p.getCodec()).readValueAs(User.class);
     }
 }

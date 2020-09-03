@@ -63,7 +63,7 @@ public final class ActivityHandleConsumer
             for (final var c : pullRequestActivity.comments) {
                 batch.bind("c_url", c.url)
                         .bind("pr_url", pullRequestActivity.url)
-                        .bind("author", hash(c.author))
+                        .bind("author", hash(c.author.uuid.toString()))
                         .bind("content", c.content)
                         .bind("is_deleted", c.deleted)
                         .bind("created_ts", c.createdOn)
@@ -78,7 +78,7 @@ public final class ActivityHandleConsumer
 
             for (final var a : pullRequestActivity.approvals) {
                 batch.bind("pr_url", pullRequestActivity.url);
-                batch.bind("approver", hash(a.approver));
+                batch.bind("approver", hash(a.approver.uuid.toString()));
                 batch.bind("approval_ts", a.date);
                 batch.add();
             }

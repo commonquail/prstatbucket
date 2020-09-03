@@ -5,9 +5,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.Approval;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.Comment;
+import io.gitlab.mkjeldsen.prstatbucket.apimodel.Link;
+import io.gitlab.mkjeldsen.prstatbucket.apimodel.ProfileLinks;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequest;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequestActivity;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequests;
+import io.gitlab.mkjeldsen.prstatbucket.apimodel.User;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.ZonedDateTime;
@@ -130,25 +133,25 @@ final class ObjectMapperTest {
                                 "Sample comment",
                                 utc("2019-05-08T18:15:54.204435+00:00"),
                                 false,
-                                "<deleted>"),
+                                User.DELETED),
                         new Comment(
                                 "https://bitbucket.org/repoowner1/repo1/pull-requests/2/_/diff#comment-94963965",
                                 "Deleted comment",
                                 utc("2019-03-14T07:47:30.666498+00:00"),
                                 true,
-                                "58dbd2a5-66ef-4367-b5ea-f2301e374449"),
+                                author1()),
                         new Comment(
                                 "https://bitbucket.org/repoowner1/repo1/pull-requests/2/_/diff#comment-94891166",
                                 "Comment with parent, different author",
                                 utc("2019-03-13T16:45:48.364789+00:00"),
                                 false,
-                                "25a9e1a0-65d4-497a-a9cd-968822cb427e"));
+                                author2()));
 
         assertThat(activity.approvals)
                 .containsOnly(
                         new Approval(
                                 utc("2019-05-15T09:25:58.674877+00:00"),
-                                "dc0d7577-9404-482a-85af-9a8a379ab471"));
+                                repoowner()));
     }
 
     private <T> T readJsonAs(String filename, Class<T> type)
@@ -160,5 +163,53 @@ final class ObjectMapperTest {
     private static Instant utc(String s) {
         // Instant::parse can't parse the timestamp format used throughout.
         return ZonedDateTime.parse(s).toInstant();
+    }
+
+    private static User repoowner() {
+        return new User(
+                "repoowner1",
+                "Repo Owner 1",
+                "557057:44a78471-963c-4b63-8a5f-994c2d75613d",
+                new ProfileLinks(
+                        new Link(
+                                "https://api.bitbucket.org/2.0/users/%7Bdc0d7577-9404-482a-85af-9a8a379ab471%7D"),
+                        new Link(
+                                "https://bitbucket.org/%7Bdc0d7577-9404-482a-85af-9a8a379ab471%7D/"),
+                        new Link("https://imgsrc.example")),
+                "repoowner1",
+                "user",
+                "{dc0d7577-9404-482a-85af-9a8a379ab471}");
+    }
+
+    private static User author1() {
+        return new User(
+                "author1",
+                "Author 1",
+                "637029:cdf29ef8-cd86-48a3-997e-f55afebd70eb",
+                new ProfileLinks(
+                        new Link(
+                                "https://api.bitbucket.org/2.0/users/%7B58dbd2a5-66ef-4367-b5ea-f2301e374449%7D"),
+                        new Link(
+                                "https://bitbucket.org/%7B58dbd2a5-66ef-4367-b5ea-f2301e374449%7D/"),
+                        new Link("https://imgsrc.example")),
+                "Author 1",
+                "user",
+                "{58dbd2a5-66ef-4367-b5ea-f2301e374449}");
+    }
+
+    private static User author2() {
+        return new User(
+                "author2",
+                "Author 2",
+                "637029:f1dcf0dd-43b2-46ff-be64-f51ef8a46db9",
+                new ProfileLinks(
+                        new Link(
+                                "https://api.bitbucket.org/2.0/users/%7B25a9e1a0-65d4-497a-a9cd-968822cb427e%7D"),
+                        new Link(
+                                "https://bitbucket.org/%7B25a9e1a0-65d4-497a-a9cd-968822cb427e%7D/"),
+                        new Link("https://imgsrc.example")),
+                "Author 2",
+                "user",
+                "{25a9e1a0-65d4-497a-a9cd-968822cb427e}");
     }
 }
