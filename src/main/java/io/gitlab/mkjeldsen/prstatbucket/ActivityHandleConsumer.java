@@ -1,7 +1,5 @@
 package io.gitlab.mkjeldsen.prstatbucket;
 
-import static io.gitlab.mkjeldsen.prstatbucket.PullRequestHandleConsumer.hash;
-
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequestActivity;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.HandleConsumer;
@@ -16,6 +14,7 @@ public final class ActivityHandleConsumer
                     + " VALUES (:c_url, :pr_url, :author, :content, :is_deleted, :created_ts)"
                     + " ON CONFLICT (c_url) DO UPDATE SET"
                     + " pr_url = excluded.pr_url,"
+                    + " author = excluded.author,"
                     + " content = excluded.content,"
                     + " is_deleted = excluded.is_deleted,"
                     + " created_ts = excluded.created_ts";
@@ -63,7 +62,7 @@ public final class ActivityHandleConsumer
             for (final var c : pullRequestActivity.comments) {
                 batch.bind("c_url", c.url)
                         .bind("pr_url", pullRequestActivity.url)
-                        .bind("author", hash(c.author.uuid.toString()))
+                        .bind("author", c.author.uuid)
                         .bind("content", c.content)
                         .bind("is_deleted", c.deleted)
                         .bind("created_ts", c.createdOn)
@@ -78,7 +77,7 @@ public final class ActivityHandleConsumer
 
             for (final var a : pullRequestActivity.approvals) {
                 batch.bind("pr_url", pullRequestActivity.url);
-                batch.bind("approver", hash(a.approver.uuid.toString()));
+                batch.bind("approver", a.approver.uuid);
                 batch.bind("approval_ts", a.date);
                 batch.add();
             }
