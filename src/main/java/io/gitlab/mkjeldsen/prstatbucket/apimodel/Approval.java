@@ -9,9 +9,9 @@ public final class Approval {
 
     public final Instant date;
 
-    public final String approver;
+    public final User approver;
 
-    public Approval(Instant date, String approver) {
+    public Approval(Instant date, User approver) {
         this.date = date;
         this.approver = approver;
     }

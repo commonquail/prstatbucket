@@ -1,10 +1,8 @@
 package io.gitlab.mkjeldsen.prstatbucket;
 
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequests;
-import java.nio.charset.StandardCharsets;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.HandleConsumer;
-import org.springframework.util.DigestUtils;
 
 public final class PullRequestHandleConsumer
         implements HandleConsumer<RuntimeException> {
@@ -16,6 +14,7 @@ public final class PullRequestHandleConsumer
                     + " VALUES (:pr_url, :destination, :title, :author, :state, :created_ts, :task_count)"
                     + " ON CONFLICT (pr_url) DO UPDATE SET"
                     + " destination = excluded.destination,"
+                    + " author = excluded.author,"
                     + " state = excluded.state,"
                     + " task_count = excluded.task_count,"
                     + " title = excluded.title";
@@ -35,7 +34,7 @@ public final class PullRequestHandleConsumer
                     .bind("destination", pr.destination.repository.fullName)
                     .bind("title", pr.title)
                     .bind("state", pr.state)
-                    .bind("author", hash(pr.author.uuid.toString()))
+                    .bind("author", pr.author.uuid)
                     .bind("created_ts", pr.createdOn)
                     .bind("task_count", pr.taskCount)
                     .add();
@@ -50,10 +49,5 @@ public final class PullRequestHandleConsumer
                 + "pullRequests="
                 + pullRequests
                 + '}';
-    }
-
-    static String hash(String author) {
-        var authorBytes = author.getBytes(StandardCharsets.UTF_8);
-        return DigestUtils.md5DigestAsHex(authorBytes);
     }
 }

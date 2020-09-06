@@ -37,7 +37,7 @@ final class DurationDensityEstimateServiceTest {
                     + " VALUES ("
                     + " md5(random()::text),"
                     + " md5(random()::text),"
-                    + " md5(random()::text),"
+                    + " md5(random()::text)::uuid,"
                     + " :state,"
                     + " :created_ts AT TIME ZONE 'UTC',"
                     + " :closed_ts AT TIME ZONE 'UTC')";
@@ -49,7 +49,7 @@ final class DurationDensityEstimateServiceTest {
                     + " approval_ts)"
                     + " SELECT"
                     + " p.pr_url,"
-                    + " md5(random()::text),"
+                    + " md5(random()::text)::uuid,"
                     + " p.created_ts + CAST(:approval_ts_offset AS INTERVAL)"
                     + " FROM pull_request AS p";
 
@@ -64,7 +64,7 @@ final class DurationDensityEstimateServiceTest {
                     + " SELECT"
                     + " md5(random()::text),"
                     + " p.pr_url,"
-                    + " md5(random()::text),"
+                    + " md5(random()::text)::uuid,"
                     + " md5(random()::text),"
                     + " false,"
                     + " p.created_ts + CAST(:comment_ts_offset AS INTERVAL)"
