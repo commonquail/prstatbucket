@@ -1,8 +1,11 @@
 package io.gitlab.mkjeldsen.prstatbucket;
 
+import static io.gitlab.mkjeldsen.prstatbucket.PullRequestHandleConsumer.ensureUsers;
 import static io.gitlab.mkjeldsen.prstatbucket.PullRequestHandleConsumer.executeBatch;
 
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequestActivity;
+import io.gitlab.mkjeldsen.prstatbucket.apimodel.User;
+import java.util.HashSet;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.HandleConsumer;
 
@@ -61,6 +64,7 @@ public final class ActivityHandleConsumer
         if (!pullRequestActivity.comments.isEmpty()) {
             final var batch = handle.prepareBatch(SQL_UPSERT_PR_COMMENT);
 
+            final var users = new HashSet<User>();
             for (final var c : pullRequestActivity.comments) {
                 batch.bind("c_url", c.url)
                         .bind("pr_url", pullRequestActivity.url)
@@ -69,7 +73,10 @@ public final class ActivityHandleConsumer
                         .bind("is_deleted", c.deleted)
                         .bind("created_ts", c.createdOn)
                         .add();
+
+                users.add(c.author);
             }
+            ensureUsers(handle, users);
 
             executeBatch(batch);
         }
@@ -77,12 +84,16 @@ public final class ActivityHandleConsumer
         if (!pullRequestActivity.approvals.isEmpty()) {
             final var batch = handle.prepareBatch(SQL_UPSERT_PR_APPROVAL);
 
+            final var users = new HashSet<User>();
             for (final var a : pullRequestActivity.approvals) {
                 batch.bind("pr_url", pullRequestActivity.url);
                 batch.bind("approver", a.approver.uuid);
                 batch.bind("approval_ts", a.date);
                 batch.add();
+
+                users.add(a.approver);
             }
+            ensureUsers(handle, users);
 
             executeBatch(batch);
         }

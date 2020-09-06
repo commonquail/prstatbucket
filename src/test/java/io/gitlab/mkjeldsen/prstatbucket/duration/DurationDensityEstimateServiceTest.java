@@ -6,6 +6,7 @@ import io.gitlab.mkjeldsen.prstatbucket.unresolved.RollbackTransaction;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.UUID;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,15 @@ import org.springframework.test.context.junit.jupiter.EnabledIf;
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 @EnabledIf("${smoke.tests.enabled:false}")
 final class DurationDensityEstimateServiceTest {
+
+    private static final UUID SOME_USER_1 =
+            UUID.fromString("09febd7d-90a8-4a87-a51e-923a4c30ef24");
+
+    private static final UUID SOME_USER_2 =
+            UUID.fromString("0803195a-b62b-47b7-a055-9a7d4cee44a7");
+
+    private static final UUID SOME_USER_3 =
+            UUID.fromString("ee631032-6f05-4d3b-94a3-cb3512107d94");
 
     @Autowired
     private Jdbi jdbi;
@@ -37,7 +47,7 @@ final class DurationDensityEstimateServiceTest {
                     + " VALUES ("
                     + " md5(random()::text),"
                     + " md5(random()::text),"
-                    + " md5(random()::text)::uuid,"
+                    + " :author,"
                     + " :state,"
                     + " :created_ts AT TIME ZONE 'UTC',"
                     + " :closed_ts AT TIME ZONE 'UTC')";
@@ -49,7 +59,7 @@ final class DurationDensityEstimateServiceTest {
                     + " approval_ts)"
                     + " SELECT"
                     + " p.pr_url,"
-                    + " md5(random()::text)::uuid,"
+                    + " :approver,"
                     + " p.created_ts + CAST(:approval_ts_offset AS INTERVAL)"
                     + " FROM pull_request AS p";
 
@@ -64,7 +74,7 @@ final class DurationDensityEstimateServiceTest {
                     + " SELECT"
                     + " md5(random()::text),"
                     + " p.pr_url,"
-                    + " md5(random()::text)::uuid,"
+                    + " :author,"
                     + " md5(random()::text),"
                     + " false,"
                     + " p.created_ts + CAST(:comment_ts_offset AS INTERVAL)"
@@ -114,14 +124,17 @@ final class DurationDensityEstimateServiceTest {
         batch.bind("state", "OPEN");
         batch.bind("created_ts", someOpenStart);
         batch.bind("closed_ts", (Instant) null);
+        batch.bind("author", SOME_USER_1);
         batch.add();
         batch.bind("state", "MERGED");
         batch.bind("created_ts", someMergedStart);
         batch.bind("closed_ts", someMergedEnd);
+        batch.bind("author", SOME_USER_1);
         batch.add();
         batch.bind("state", "DECLINED");
         batch.bind("created_ts", someDeclinedStart);
         batch.bind("closed_ts", someDeclinedEnd);
+        batch.bind("author", SOME_USER_1);
         batch.add();
 
         batch.execute();
@@ -154,20 +167,24 @@ final class DurationDensityEstimateServiceTest {
         batch.bind("state", "OPEN");
         batch.bind("created_ts", someOpenStart);
         batch.bind("closed_ts", (Instant) null);
+        batch.bind("author", SOME_USER_1);
         batch.add();
         batch.bind("state", "MERGED");
         batch.bind("created_ts", someMergedStart);
         batch.bind("closed_ts", someMergedEnd);
+        batch.bind("author", SOME_USER_1);
         batch.add();
         batch.bind("state", "DECLINED");
         batch.bind("created_ts", someDeclinedStart);
         batch.bind("closed_ts", someDeclinedEnd);
+        batch.bind("author", SOME_USER_1);
         batch.add();
 
         batch.execute();
 
         handle.createUpdate(INSERT_APPROVAL)
                 .bind("approval_ts_offset", "1h")
+                .bind("approver", SOME_USER_2)
                 .execute();
 
         final var actual = service.dataFor(DurationDensityReport.ttfa);
@@ -203,15 +220,18 @@ final class DurationDensityEstimateServiceTest {
         batch.bind("state", "OPEN");
         batch.bind("created_ts", someOpenStart);
         batch.bind("closed_ts", (Instant) null);
+        batch.bind("author", SOME_USER_1);
         batch.add();
 
         batch.execute();
 
         handle.createUpdate(INSERT_APPROVAL)
                 .bind("approval_ts_offset", "1h")
+                .bind("approver", SOME_USER_2)
                 .execute();
         handle.createUpdate(INSERT_APPROVAL)
                 .bind("approval_ts_offset", "2h")
+                .bind("approver", SOME_USER_3)
                 .execute();
 
         final var actual = service.dataFor(DurationDensityReport.ttla);
@@ -241,20 +261,24 @@ final class DurationDensityEstimateServiceTest {
         batch.bind("state", "OPEN");
         batch.bind("created_ts", someOpenStart);
         batch.bind("closed_ts", (Instant) null);
+        batch.bind("author", SOME_USER_1);
         batch.add();
         batch.bind("state", "MERGED");
         batch.bind("created_ts", someMergedStart);
         batch.bind("closed_ts", someMergedEnd);
+        batch.bind("author", SOME_USER_1);
         batch.add();
         batch.bind("state", "DECLINED");
         batch.bind("created_ts", someDeclinedStart);
         batch.bind("closed_ts", someDeclinedEnd);
+        batch.bind("author", SOME_USER_1);
         batch.add();
 
         batch.execute();
 
         handle.createUpdate(INSERT_COMMENT)
                 .bind("comment_ts_offset", "1h")
+                .bind("author", SOME_USER_2)
                 .execute();
 
         final var actual = service.dataFor(DurationDensityReport.ttfc);
@@ -290,15 +314,18 @@ final class DurationDensityEstimateServiceTest {
         batch.bind("state", "OPEN");
         batch.bind("created_ts", someOpenStart);
         batch.bind("closed_ts", (Instant) null);
+        batch.bind("author", SOME_USER_1);
         batch.add();
 
         batch.execute();
 
         handle.createUpdate(INSERT_COMMENT)
                 .bind("comment_ts_offset", "1h")
+                .bind("author", SOME_USER_2)
                 .execute();
         handle.createUpdate(INSERT_COMMENT)
                 .bind("comment_ts_offset", "2h")
+                .bind("author", SOME_USER_2)
                 .execute();
 
         final var actual = service.dataFor(DurationDensityReport.ttlc);
@@ -324,15 +351,18 @@ final class DurationDensityEstimateServiceTest {
         batch.bind("state", "OPEN");
         batch.bind("created_ts", someOpenStart);
         batch.bind("closed_ts", (Instant) null);
+        batch.bind("author", SOME_USER_1);
         batch.add();
 
         batch.execute();
 
         handle.createUpdate(INSERT_COMMENT)
                 .bind("comment_ts_offset", "1h")
+                .bind("author", SOME_USER_2)
                 .execute();
         handle.createUpdate(INSERT_APPROVAL)
                 .bind("approval_ts_offset", "2h")
+                .bind("approver", SOME_USER_3)
                 .execute();
 
         final var actual = service.dataFor(DurationDensityReport.ttlc);
