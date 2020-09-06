@@ -40,7 +40,7 @@ public final class PullRequestHandleConsumer
                     .add();
         }
 
-        batch.execute();
+        executeBatch(batch);
     }
 
     @Override
@@ -49,5 +49,21 @@ public final class PullRequestHandleConsumer
                 + "pullRequests="
                 + pullRequests
                 + '}';
+    }
+
+    /**
+     * Safely executes the provided batch.
+     *
+     * <p>{@link PreparedBatch#execute() Executing} an empty prepared batch
+     * yields a runtime error. This usually happens when a batch is populated by
+     * a loop over a collection that in some rare cases can be empty. If the
+     * provided batch is empty, this method does nothing.
+     *
+     * @param batch the prepared batch to execute
+     */
+    static void executeBatch(final PreparedBatch batch) {
+        if (batch.size() > 0) {
+            batch.execute();
+        }
     }
 }
