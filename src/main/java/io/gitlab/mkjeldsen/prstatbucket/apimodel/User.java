@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.UUID;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class Author {
+public final class User {
 
     public final String username;
     public final String displayName;
@@ -24,7 +24,7 @@ public final class Author {
      * @param type
      * @param displayName
      */
-    public Author(
+    public User(
             @JsonProperty("username") String username,
             @JsonProperty("display_name") String displayName,
             @JsonProperty("account_id") String accountId,

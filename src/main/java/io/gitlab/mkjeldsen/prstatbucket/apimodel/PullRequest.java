@@ -36,7 +36,7 @@ public final class PullRequest {
     public final int taskCount;
     public final String reason;
     public final Instant updatedOn;
-    public final Author author;
+    public final User author;
     public final MergeCommit mergeCommit;
     public final ClosedBy closedBy;
 
@@ -76,7 +76,7 @@ public final class PullRequest {
             @JsonProperty("task_count") int taskCount,
             @JsonProperty("reason") String reason,
             @JsonProperty("updated_on") Instant updatedOn,
-            @JsonProperty("author") Author author,
+            @JsonProperty("author") User author,
             @JsonProperty("merge_commit") MergeCommit mergeCommit,
             @JsonProperty("closed_by") ClosedBy closedBy) {
         super();
