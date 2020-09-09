@@ -2,7 +2,6 @@ package io.gitlab.mkjeldsen.prstatbucket.apimodel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Objects;
 import java.util.UUID;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -91,18 +90,11 @@ public final class User {
             return false;
         }
         final User user = (User) o;
-        return username.equals(user.username)
-                && displayName.equals(user.displayName)
-                && accountId.equals(user.accountId)
-                && links.equals(user.links)
-                && nickname.equals(user.nickname)
-                && type.equals(user.type)
-                && uuid.equals(user.uuid);
+        return uuid.equals(user.uuid);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                username, displayName, accountId, links, nickname, type, uuid);
+        return uuid.hashCode();
     }
 }
