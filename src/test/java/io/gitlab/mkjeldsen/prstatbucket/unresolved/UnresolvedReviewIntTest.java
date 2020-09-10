@@ -4,16 +4,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
 import io.gitlab.mkjeldsen.prstatbucket.BackgroundIngester;
-import io.gitlab.mkjeldsen.prstatbucket.JsonSupplier;
 import io.gitlab.mkjeldsen.prstatbucket.PullRequestStateFilter;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import io.gitlab.mkjeldsen.prstatbucket.testhelper.TestResourceJsonSupplier;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import org.assertj.core.api.ObjectAssert;
 import org.jdbi.v3.core.Jdbi;
@@ -33,6 +32,17 @@ final class UnresolvedReviewIntTest {
 
     private Savepoint savepoint;
 
+    private static final Function<String, String> urlOverride =
+            url -> {
+                if (url.contains("?ctx=")) {
+                    return "/activity-empty.json";
+                }
+                if (url.endsWith("/activity")) {
+                    return "/activity.json";
+                }
+                return url;
+            };
+
     @BeforeEach
     void beginTransaction() {
         savepoint = jdbi.withHandle(Savepoint::create);
@@ -50,7 +60,7 @@ final class UnresolvedReviewIntTest {
         final var ingester =
                 new BackgroundIngester(
                         PullRequestStateFilter.all(),
-                        new TestResourceJsonSupplier(),
+                        new TestResourceJsonSupplier(urlOverride),
                         jdbi,
                         executor);
 
@@ -105,7 +115,7 @@ final class UnresolvedReviewIntTest {
         final var ingester =
                 new BackgroundIngester(
                         PullRequestStateFilter.all(),
-                        new TestResourceJsonSupplier(),
+                        new TestResourceJsonSupplier(urlOverride),
                         jdbi,
                         executor);
 
@@ -152,7 +162,7 @@ final class UnresolvedReviewIntTest {
         final var ingester =
                 new BackgroundIngester(
                         PullRequestStateFilter.all(),
-                        new TestResourceJsonSupplier(),
+                        new TestResourceJsonSupplier(urlOverride),
                         jdbi,
                         executor);
 
@@ -194,25 +204,5 @@ final class UnresolvedReviewIntTest {
 
     private static Predicate<UnresolvedReview> hasTitle(String title) {
         return pr -> title.equals(pr.getTitle());
-    }
-
-    private static final class TestResourceJsonSupplier
-            implements JsonSupplier {
-        @Override
-        public String getJson(String url) throws IOException {
-            if (url.contains("?ctx=")) {
-                url = "/activity-empty.json";
-            } else if (url.endsWith("/activity")) {
-                url = "/activity.json";
-            }
-            try (var json = getClass().getResourceAsStream(url)) {
-                assert json != null : url;
-                byte[] bytes = json.readAllBytes();
-                return new String(bytes, StandardCharsets.UTF_8);
-            }
-        }
-
-        @Override
-        public void close() throws Exception {}
     }
 }
