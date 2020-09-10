@@ -1,17 +1,12 @@
 package io.gitlab.mkjeldsen.prstatbucket.unresolved;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 
-import io.gitlab.mkjeldsen.prstatbucket.BackgroundIngester;
-import io.gitlab.mkjeldsen.prstatbucket.PullRequestStateFilter;
-import io.gitlab.mkjeldsen.prstatbucket.testhelper.TestResourceJsonSupplier;
+import io.gitlab.mkjeldsen.prstatbucket.testhelper.TestIngester;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.List;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import org.assertj.core.api.ObjectAssert;
@@ -55,20 +50,10 @@ final class UnresolvedReviewIntTest {
 
     @Test
     void ingests_and_extracts_open_pull_requests() {
-
-        final var executor = new ForkJoinPool();
-        final var ingester =
-                new BackgroundIngester(
-                        PullRequestStateFilter.all(),
-                        new TestResourceJsonSupplier(urlOverride),
-                        jdbi,
-                        executor);
+        final var ingester = new TestIngester(jdbi, urlOverride);
 
         ingester.ingestAll(
                 List.of("/pullrequests.json", "/more-pullrequests.json"));
-        if (!executor.awaitQuiescence(2, TimeUnit.SECONDS)) {
-            fail("tardy executor");
-        }
 
         final Clock someClock =
                 Clock.fixed(
@@ -104,6 +89,7 @@ final class UnresolvedReviewIntTest {
 
     @Test
     void bug_open_to_closed_pr() {
+        final var ingester = new TestIngester(jdbi, urlOverride);
 
         // If a PR is ingested while open, then again after closing, its state
         // must accurately reflect this change.
@@ -111,18 +97,7 @@ final class UnresolvedReviewIntTest {
         // Ingest an open PR, then ingest it again with some closed state.
         // Expect it to no longer be open.
 
-        final var executor = new ForkJoinPool();
-        final var ingester =
-                new BackgroundIngester(
-                        PullRequestStateFilter.all(),
-                        new TestResourceJsonSupplier(urlOverride),
-                        jdbi,
-                        executor);
-
         ingester.ingest("/bug/open-to-closed/pullrequests-open.json");
-        if (!executor.awaitQuiescence(1, TimeUnit.SECONDS)) {
-            fail("tardy executor");
-        }
 
         final var someClock = Clock.systemUTC();
         final var dao = new UnresolvedReviewDao(jdbi, someClock);
@@ -135,9 +110,6 @@ final class UnresolvedReviewIntTest {
                 .contains("Some open, then closed PR");
 
         ingester.ingest("/bug/open-to-closed/pullrequests-closed.json");
-        if (!executor.awaitQuiescence(1, TimeUnit.SECONDS)) {
-            fail("tardy executor");
-        }
 
         final var afterClosed = dao.getOpenPullRequests();
         assertThat(afterClosed)
@@ -148,6 +120,7 @@ final class UnresolvedReviewIntTest {
 
     @Test
     void bug_mismatched_comment_count() {
+        final var ingester = new TestIngester(jdbi, urlOverride);
 
         // The comment_count recorded on a PR does not always match the total
         // comments recorded in the activity or comments endpoints. Differences
@@ -158,19 +131,8 @@ final class UnresolvedReviewIntTest {
         // containing two comments, one of which is deleted. Expect
         // comment_count == 1.
 
-        final var executor = new ForkJoinPool();
-        final var ingester =
-                new BackgroundIngester(
-                        PullRequestStateFilter.all(),
-                        new TestResourceJsonSupplier(urlOverride),
-                        jdbi,
-                        executor);
-
         ingester.ingest(
                 "/bug/mismatched-comment-count/pullrequests-no-comments.json");
-        if (!executor.awaitQuiescence(1, TimeUnit.SECONDS)) {
-            fail("tardy executor");
-        }
 
         final var someClock = Clock.systemUTC();
         final var dao = new UnresolvedReviewDao(jdbi, someClock);
@@ -183,9 +145,6 @@ final class UnresolvedReviewIntTest {
                 .isEqualTo(0);
 
         ingester.ingest("/bug/mismatched-comment-count/activity-comments.json");
-        if (!executor.awaitQuiescence(1, TimeUnit.SECONDS)) {
-            fail("tardy executor");
-        }
 
         final var afterActivity = dao.getOpenPullRequests();
         assertThatPrByTitle(afterActivity, prTitle)
