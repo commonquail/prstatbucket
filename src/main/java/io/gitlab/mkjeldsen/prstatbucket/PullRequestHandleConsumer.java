@@ -3,6 +3,7 @@ package io.gitlab.mkjeldsen.prstatbucket;
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequests;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.HandleConsumer;
+import org.jdbi.v3.core.statement.PreparedBatch;
 
 public final class PullRequestHandleConsumer
         implements HandleConsumer<RuntimeException> {
