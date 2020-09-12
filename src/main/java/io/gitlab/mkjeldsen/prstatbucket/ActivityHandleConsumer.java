@@ -1,6 +1,7 @@
 package io.gitlab.mkjeldsen.prstatbucket;
 
 import static io.gitlab.mkjeldsen.prstatbucket.PullRequestHandleConsumer.executeBatch;
+
 import io.gitlab.mkjeldsen.prstatbucket.apimodel.PullRequestActivity;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.HandleConsumer;
