@@ -17,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit.jupiter.EnabledIf;
 
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
-@EnabledIf("${smoke.tests.enabled:false}")
+@EnabledIf("${test.database:false}")
 final class DurationDensityEstimateServiceTest {
 
     private static final UUID SOME_USER_1 =

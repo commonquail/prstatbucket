@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(UnresolvedReviewController.class)
-@EnabledIf("${smoke.tests.enabled:false}")
+@EnabledIf("${test.database:false}")
 final class UnresolvedReviewControllerIntTest {
 
     @Autowired

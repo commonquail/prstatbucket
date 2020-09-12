@@ -18,8 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.EnabledIf;
 
-@EnabledIf("${smoke.tests.enabled:false}")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@EnabledIf("${test.database:false}")
 final class UnresolvedReviewIntTest {
 
     @Autowired

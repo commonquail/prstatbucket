@@ -33,7 +33,7 @@ import org.springframework.test.web.servlet.MockMvc;
     AppConfig.class,
     DurationDensityEstimateController.class,
 })
-@EnabledIf("${smoke.tests.enabled:false}")
+@EnabledIf("${test.database:false}")
 final class DurationDensityEstimateControllerIntTest {
 
     @Autowired

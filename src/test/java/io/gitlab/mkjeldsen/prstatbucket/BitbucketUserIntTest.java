@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.EnabledIf;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@EnabledIf("${smoke.tests.enabled:false}")
+@EnabledIf("${test.database:false}")
 final class BitbucketUserIntTest {
 
     @Autowired

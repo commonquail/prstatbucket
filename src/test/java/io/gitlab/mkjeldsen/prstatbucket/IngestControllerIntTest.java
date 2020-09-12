@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(IngestController.class)
-@EnabledIf("${smoke.tests.enabled:false}")
+@EnabledIf("${test.database:false}")
 final class IngestControllerIntTest {
 
     @Autowired

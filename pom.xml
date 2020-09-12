@@ -131,7 +131,7 @@
         <version>3.0.0-M1</version>
         <configuration>
           <tagNameFormat>v@{project.version}</tagNameFormat>
-          <arguments>-Dsmoke.tests.enabled</arguments>
+          <arguments>-Dtest.database</arguments>
         </configuration>
       </plugin>
     </plugins>
