@@ -123,7 +123,7 @@ this authentication flow and should not point to an existing resource.
 Much work is possible with a plain Java 11 enabled `mvn test`.
 
 Some tests require a database, via `docker-compose up`, and must be invoked
-with `mvn -Dsmoke.tests.enabled test`.
+with `mvn -Dtest.database test`.
 
 ### Releasing
 

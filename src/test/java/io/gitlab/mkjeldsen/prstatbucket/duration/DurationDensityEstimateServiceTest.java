@@ -2,6 +2,7 @@ package io.gitlab.mkjeldsen.prstatbucket.duration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import io.gitlab.mkjeldsen.prstatbucket.testhelper.ExternalDatabaseTest;
 import io.gitlab.mkjeldsen.prstatbucket.unresolved.RollbackTransaction;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -14,10 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.test.context.junit.jupiter.EnabledIf;
 
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
-@EnabledIf("${smoke.tests.enabled:false}")
+@ExternalDatabaseTest
 final class DurationDensityEstimateServiceTest {
 
     private static final UUID SOME_USER_1 =

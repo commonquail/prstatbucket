@@ -2,6 +2,7 @@ package io.gitlab.mkjeldsen.prstatbucket;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import io.gitlab.mkjeldsen.prstatbucket.testhelper.ExternalDatabaseTest;
 import io.gitlab.mkjeldsen.prstatbucket.testhelper.TestIngester;
 import io.gitlab.mkjeldsen.prstatbucket.unresolved.Savepoint;
 import java.util.UUID;
@@ -12,10 +13,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.EnabledIf;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@EnabledIf("${smoke.tests.enabled:false}")
+@ExternalDatabaseTest
 final class BitbucketUserIntTest {
 
     @Autowired
