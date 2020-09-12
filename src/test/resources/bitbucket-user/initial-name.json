@@ -1,0 +1,150 @@
+{
+  "pagelen": 10,
+  "values": [
+    {
+      "description": "README.md created online with Bitbucket",
+      "links": {
+        "decline": {
+          "href": "https://api.bitbucket.org/2.0/repositories/someuser/somerepo/pullrequests/3/decline"
+        },
+        "diffstat": {
+          "href": "https://api.bitbucket.org/2.0/repositories/someuser/somerepo/diffstat/someuser/somerepo:a92a869793b5%0D5466393f4e89?from_pullrequest_id=3"
+        },
+        "commits": {
+          "href": "https://api.bitbucket.org/2.0/repositories/someuser/somerepo/pullrequests/3/commits"
+        },
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/repositories/someuser/somerepo/pullrequests/3"
+        },
+        "comments": {
+          "href": "https://api.bitbucket.org/2.0/repositories/someuser/somerepo/pullrequests/3/comments"
+        },
+        "merge": {
+          "href": "https://api.bitbucket.org/2.0/repositories/someuser/somerepo/pullrequests/3/merge"
+        },
+        "html": {
+          "href": "https://bitbucket.org/someuser/somerepo/pull-requests/3"
+        },
+        "activity": {
+          "href": "https://api.bitbucket.org/2.0/repositories/someuser/somerepo/pullrequests/3/activity"
+        },
+        "diff": {
+          "href": "https://api.bitbucket.org/2.0/repositories/someuser/somerepo/pullrequests/3/diff"
+        },
+        "approve": {
+          "href": "https://api.bitbucket.org/2.0/repositories/someuser/somerepo/pullrequests/3/approve"
+        },
+        "statuses": {
+          "href": "https://api.bitbucket.org/2.0/repositories/someuser/somerepo/pullrequests/3/statuses"
+        }
+      },
+      "title": "Some PR",
+      "close_source_branch": true,
+      "type": "pullrequest",
+      "id": 3,
+      "destination": {
+        "commit": {
+          "hash": "f3da09ef5e3a",
+          "type": "commit",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/someuser/somerepo/commit/f3da09ef5e3a"
+            },
+            "html": {
+              "href": "https://bitbucket.org/someuser/somerepo/commits/f3da09ef5e3a"
+            }
+          }
+        },
+        "repository": {
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/someuser/somerepo"
+            },
+            "html": {
+              "href": "https://bitbucket.org/someuser/somerepo"
+            },
+            "avatar": {
+              "href": "https://imgsrc.example"
+            }
+          },
+          "type": "repository",
+          "name": "Some Repo",
+          "full_name": "someuser/somerepo",
+          "uuid": "{58113816-08a2-4975-8b2d-2659a5a409df}"
+        },
+        "branch": {
+          "name": "master"
+        }
+      },
+      "created_on": "2019-05-15T08:35:07.724888+00:00",
+      "summary": {
+        "raw": "README.md created online with Bitbucket",
+        "markup": "markdown",
+        "html": "<p>README.md created online with Bitbucket</p>",
+        "type": "rendered"
+      },
+      "source": {
+        "commit": {
+          "hash": "3032fdc0941c",
+          "type": "commit",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/someuser/somerepo/commit/3032fdc0941c"
+            },
+            "html": {
+              "href": "https://bitbucket.org/someuser/somerepo/commits/3032fdc0941c"
+            }
+          }
+        },
+        "repository": {
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/someuser/somerepo"
+            },
+            "html": {
+              "href": "https://bitbucket.org/someuser/somerepo"
+            },
+            "avatar": {
+              "href": "https://imgsrc.example"
+            }
+          },
+          "type": "repository",
+          "name": "Some Repo",
+          "full_name": "someuser/somerepo",
+          "uuid": "{58113816-08a2-4975-8b2d-2659a5a409df}"
+        },
+        "branch": {
+          "name": "someuser/readmemd-created-online-with-bitbucket-1557909287107"
+        }
+      },
+      "comment_count": 0,
+      "state": "OPEN",
+      "task_count": 0,
+      "reason": "",
+      "updated_on": "2019-05-15T09:25:58.679927+00:00",
+      "author": {
+        "username": "someuser",
+        "display_name": "Some Initial Display Name",
+        "uuid": "{58113816-08a2-4975-8b2d-2659a5a409df}",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/users/%7B58113816-08a2-4975-8b2d-2659a5a409df%7D"
+          },
+          "html": {
+            "href": "https://bitbucket.org/%7B58113816-08a2-4975-8b2d-2659a5a409df%7D/"
+          },
+          "avatar": {
+            "href": "https://imgsrc.example"
+          }
+        },
+        "nickname": "Some Initial Nickname",
+        "type": "user",
+        "account_id": "557058:c0022c5d-395d-4d95-8c82-304281524c4a"
+      },
+      "merge_commit": null,
+      "closed_by": null
+    }
+  ],
+  "page": 1,
+  "size": 1
+}
