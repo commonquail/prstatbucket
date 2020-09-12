@@ -2,6 +2,7 @@ package io.gitlab.mkjeldsen.prstatbucket.unresolved;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import io.gitlab.mkjeldsen.prstatbucket.testhelper.ExternalDatabaseTest;
 import io.gitlab.mkjeldsen.prstatbucket.testhelper.TestIngester;
 import java.time.Clock;
 import java.time.Instant;
@@ -16,10 +17,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.EnabledIf;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@EnabledIf("${test.database:false}")
+@ExternalDatabaseTest
 final class UnresolvedReviewIntTest {
 
     @Autowired
